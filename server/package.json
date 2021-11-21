@@ -1,0 +1,28 @@
+{
+  "name": "medicords",
+  "version": "1.0.0",
+  "description": "An online portal for maintaining records of patients",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.0",
+    "nodemon": "^2.0.13",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/txnuj/MedicalAID.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/txnuj/MedicalAID/issues"
+  },
+  "homepage": "https://github.com/txnuj/MedicalAID#readme"
+}

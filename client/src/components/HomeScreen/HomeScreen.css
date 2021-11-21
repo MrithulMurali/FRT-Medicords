@@ -1,0 +1,73 @@
+.home {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.home-title {
+  font-size: 3rem;
+  color: rgb(0, 66, 173);
+  font-weight: bolder;
+  margin-top: 100px;
+  opacity: 0;
+  pointer-events: none;
+  animation: logo-animation 500ms 200ms forwards;
+}
+.quote {
+  font-size: 1.3rem;
+  font-style: italic;
+  background: rgb(239, 251, 255);
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-buttons button {
+  margin: 40px 50px;
+}
+.signup-auth {
+  background: transparent;
+  border: 2px solid blue;
+  border-radius: 10px;
+  color: blue;
+  padding: 12px 28px;
+
+  transition: all 200ms ease;
+}
+.login-auth {
+  background: blue;
+  color: white;
+  border-radius: 10px;
+  padding: 12px 32px;
+  font-size: 1.2rem;
+  transition: all 200ms ease;
+}
+.login-auth:hover {
+  background: darkblue;
+}
+.signup-auth:hover {
+  color: white;
+  background: blue;
+}
+
+@keyframes logo-animation {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(0);
+  }
+}

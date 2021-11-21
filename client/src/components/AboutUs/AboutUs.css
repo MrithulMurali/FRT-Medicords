@@ -1,0 +1,37 @@
+.about-title {
+  width: 100%;
+  text-align: center;
+  border-radius: 3px;
+  padding: 3px 5px;
+  color: whitesmoke;
+  background: rgb(71, 83, 255);
+  margin-bottom: 40px;
+}
+
+.account-header {
+  text-transform: capitalize;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.about-content {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+.close-button-container {
+  text-align: end;
+}
+.close-button {
+  border-radius: 5px;
+  border: 1.2px solid blue;
+  color: blue;
+  transition: 200ms all;
+  background: transparent;
+}
+.close-button:hover {
+  background: blue;
+  color: white;
+}
+.close-button:active {
+  transform: scale(102%);
+}

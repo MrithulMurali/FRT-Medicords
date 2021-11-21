@@ -1,0 +1,26 @@
+td {
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.record-edit {
+  cursor: pointer;
+  padding: 10px 20px;
+  background: transparent;
+  color: blue;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  background: rgb(85, 85, 255);
+  color: white;
+}
+.record-edit:hover {
+  border: none;
+  color: white;
+}
+.record-edit:active {
+  transform: scale(103%);
+}

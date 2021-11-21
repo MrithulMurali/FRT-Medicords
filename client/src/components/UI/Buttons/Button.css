@@ -1,0 +1,6 @@
+.button-default {
+  border: none;
+  padding: 10px 25px;
+  font-size: 1.05rem;
+  cursor: pointer;
+}

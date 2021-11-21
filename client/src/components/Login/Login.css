@@ -1,0 +1,121 @@
+/* Auth choice styles */
+.auth-choice-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1.5rem;
+  margin: 30px 0px;
+}
+.auth-choice-container button {
+  padding: 15px 20px;
+  margin: 0px 30px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.auth-choice-container button:first-child {
+  background: rgb(255, 124, 37);
+  color: white;
+}
+.auth-choice-container button:nth-child(2) {
+  background: rgb(109, 0, 182);
+  color: white;
+}
+.auth-choice-container button:active {
+  transform: scale(97%);
+}
+/*Login form styles */
+
+.login-fieldset {
+  width: 50%;
+  min-height: 55vh;
+  margin: 40px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 2px solid rgb(188, 188, 255);
+  background: rgba(238, 238, 255, 0.603);
+  backdrop-filter: blur(10px);
+  font-size: 1.2rem;
+}
+.login-fieldset label {
+  margin-right: 30px;
+}
+.login-fieldset legend {
+  font-size: 1.5rem;
+  color: blue;
+}
+.userref-container,
+.adminid-container {
+  margin-top: 70px;
+}
+.username-container,
+.password-container {
+  margin-top: 40px;
+}
+.error-msg {
+  margin-top: 50px;
+  color: red;
+  animation: error 100ms 100ms forwards;
+  transform: scale(0%);
+  opacity: 0;
+}
+/* Margin align input fields of username and password */
+.username-container input,
+.password-container input {
+  margin-left: 70px;
+}
+
+.login-fieldset input {
+  width: 200px;
+  height: 20px;
+  font-size: 1.5rem;
+  padding: 5px 8px;
+}
+/* Underline animation */
+
+#user-ref-label {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+}
+#user-ref-label::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1.5px;
+  bottom: 0;
+  left: 0;
+  background-color: #2e2e2eb2;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+#user-ref-label:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+/*Login button */
+.login {
+  margin-top: 50px;
+  background: rgb(46, 46, 185);
+  color: white;
+  border-radius: 10px;
+}
+.login:active {
+  transform: scale(97%);
+}
+.login:hover {
+  background: darkblue;
+}
+
+@keyframes error {
+  100% {
+    transform: scale(100%);
+    opacity: 1;
+  }
+}

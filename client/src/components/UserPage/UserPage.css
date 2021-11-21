@@ -1,0 +1,115 @@
+.user-card {
+  width: 60%;
+  height: 50vh;
+  margin: 100px auto 0px auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: rgba(201, 216, 255, 0.24);
+  border-radius: 25px;
+  text-align: center;
+}
+.card-details h2 {
+  font-size: 1.8rem;
+}
+.card-details p {
+  font-size: 1.1rem;
+}
+
+.user-card img {
+  object-fit: cover;
+  width: 250px;
+  height: 250px;
+  margin-right: 100px;
+  border-radius: 50%;
+}
+/*Record container styles */
+.record-container {
+  width: 80%;
+  margin: 50px auto;
+}
+.record-container h2 {
+  text-align: center;
+}
+.record-choices {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.record-choices button {
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  margin-top: 100px;
+
+  cursor: pointer;
+}
+.record-choices button:nth-child(1) {
+  margin-right: 100px;
+}
+.record-choices button:first-child {
+  background: rgb(248, 131, 52);
+  color: white;
+}
+.record-choices button:nth-child(2) {
+  background: rgb(140, 55, 197);
+  color: white;
+}
+
+.search {
+  height: 100px;
+  width: 40%;
+  margin: 100px auto 60px auto;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  font-size: 1.1rem;
+  border: 2px solid blue;
+  border-right: none;
+  padding: 10px;
+  height: 26px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9da2bf;
+}
+
+.searchTerm:focus {
+  color: darkblue;
+}
+
+.searchButton {
+  width: 70px;
+  height: 50px;
+  color: blue;
+  border: 2px solid blue;
+  background: transparent;
+  border-left: none;
+  text-align: center;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 20px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+th {
+  background-color: #0042ad;
+  color: white;
+}

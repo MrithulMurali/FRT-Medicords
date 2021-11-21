@@ -1,0 +1,46 @@
+.contact-container {
+  text-align: center;
+}
+.contact-title {
+  background: rgb(73, 73, 223);
+  color: white;
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 5px;
+}
+.contact-header {
+  font-size: 1.2rem;
+}
+
+.reachus-container a {
+  text-decoration: none;
+  color: white;
+  background: rgb(131, 131, 224);
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+.icons > * {
+  padding: 20px;
+  margin-left: 20px;
+  font-size: 1.6rem;
+}
+.reachus-container a:hover {
+  background: rgb(73, 73, 223);
+}
+.reachus-container a:active {
+  transform: scale(102%);
+}
+.close-button {
+  border-radius: 5px;
+  border: 1.2px solid blue;
+  color: blue;
+  transition: 200ms all;
+  background: transparent;
+}
+.close-button:hover {
+  background: blue;
+  color: white;
+}
+.close-button:active {
+  transform: scale(102%);
+}

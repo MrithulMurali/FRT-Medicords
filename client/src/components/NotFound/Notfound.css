@@ -1,0 +1,12 @@
+.home-button {
+  font-size: 1.2rem;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid rgb(69, 212, 193);
+  color: rgb(69, 212, 193);
+}
+.home-button:hover {
+  border: none;
+  background: rgb(69, 212, 193);
+  color: white;
+}

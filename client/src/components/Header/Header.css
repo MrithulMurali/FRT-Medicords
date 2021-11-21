@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Oxygen&family=Poppins&family=Roboto&display=swap");
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px;
+  background: rgb(0, 66, 173);
+  color: white;
+}
+.links-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  list-style: none;
+}
+.nav-title {
+  cursor: pointer;
+  padding-left: 10px;
+  font-size: 1.15rem;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.5px;
+}
+.nav-title h2 {
+  text-decoration: none;
+}
+.link {
+  margin-left: 20px;
+  cursor: pointer;
+  height: 100%;
+  font-size: 1rem;
+}
+.link:first-child {
+  margin-right: 40px;
+}
+
+.link:hover {
+  transform: scale(110%);
+}
