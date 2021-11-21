@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const PatientDetails = require("../models/schema");
 
 //controller for registering user
 exports.registerUser = async (req, res) => {
@@ -7,27 +8,41 @@ exports.registerUser = async (req, res) => {
       res.json({ err: "You have fill the registration details!" });
       return;
     }
-    let {
+    let { name, bloodgrp, age, mobile, ailment, gender, username, password } =
+      req.body;
+
+    //hashing password
+    const hash = await bcrypt.hashSync(password, 10);
+
+    //Send data to mongodb
+
+    const patientDetails = new PatientDetails({
       name,
       bloodgrp,
       age,
       mobile,
-      dob,
       ailment,
       gender,
       username,
-      password,
-    } = req.body;
+      password: hash,
+    });
 
-    //hashing password
-    const hash = await bcrypt.hashSync(password, 10);
+    patientDetails
+      .save(patientDetails)
+      .then((register) => {
+        res.json({ register });
+      })
+      .catch((err) => {
+        res.status(406).json({
+          err: err.message || "Something went wrong while registration!",
+        });
+      });
 
     res.json({
       name,
       bloodgrp,
       age,
       mobile,
-      dob,
       ailment,
       gender,
       username,
