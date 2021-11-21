@@ -107,7 +107,7 @@ export default function Login(props) {
           uname === adminAccess.name &&
           password === adminAccess.pass
         ) {
-          fetch("http://localhost:8080/login/api/verifyAdmin", {
+          /* fetch("http://localhost:8080/login/api/verifyAdmin", {
             method: "POST",
             body: JSON.stringify({
               ref_no: adminAccess.id,
@@ -128,10 +128,10 @@ export default function Login(props) {
                 alert("Invalid user credentials");
               }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err)); */
 
-          // props.setAuth(true);
-          // history.push("/admin");
+          props.setAuth(true);
+          history.push("/admin");
         } else {
           setErrorMessage("Incorrect credentials!");
         }
@@ -176,7 +176,6 @@ export default function Login(props) {
             }
           })
           .catch((err) => console.log(err));
-
       } else {
         setErrorMessage("Form not valid yet! Try again!");
       }

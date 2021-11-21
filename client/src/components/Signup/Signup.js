@@ -2,7 +2,6 @@ import { React, useEffect, useState } from "react";
 import { useRef } from "react";
 import Button from "../UI/Buttons/Button";
 import "./Signup.css";
-import emailjs from "emailjs-com";
 
 export default function Login() {
   //Input storing handlers
@@ -291,7 +290,7 @@ export default function Login() {
       mobileRef.current.value.trim() !== "" &&
       addressRef.current.value.trim() !== ""
     ) {
-      emailjs
+      /* emailjs
         .sendForm(
           "gmail",
           "template_wo9y4vi",
@@ -305,7 +304,7 @@ export default function Login() {
           (error) => {
             console.log(error.text);
           }
-        );
+        ); */
       setMailStatus(true);
     } else {
       alert("Fields cannot be empty!");

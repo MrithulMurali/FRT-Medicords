@@ -3,6 +3,21 @@ import "./RegisterPatient.css";
 import { districts } from "../helperDistricts";
 
 export default function RegisterPatient(props) {
+  const randomPasswordGenerator = () => {
+    let stringInclude = "";
+    stringInclude += "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+    stringInclude += "0123456789";
+    stringInclude += "abcdefghijklmnopqrstuvwxyz";
+    stringInclude += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var password = "";
+    for (let i = 0; i < 10; i++) {
+      password += stringInclude.charAt(
+        Math.floor(Math.random() * stringInclude.length)
+      );
+    }
+    return password;
+  };
+
   const nameRef = useRef();
   const emailRef = useRef();
   const bloodgGrpRef = useRef();
@@ -35,39 +50,24 @@ export default function RegisterPatient(props) {
       /\d/.test(mobileRef.current.value) &&
       ailmentRef.current.value.trim() !== ""
     ) {
-      fetch("http://localhost:8080/admin/api/registerPatient",{
-            method: 'POST',
-            body: JSON.stringify({
-               patient_name :nameRef.current.value,
-             blood_group : bloodgGrpRef.current.value,
-             patient_district : districtRef.current.value,
-             patient_dob : dobRef.current.value,
-             patient_gender : gender,
-              patient_mobile : mobileRef.current.value,
-             patient_email: emailRef.current.value,
-             lastVisit: new Date().toISOString().slice(0, 10),
-           ailment : ailmentRef.current.value,
-            }),
-            headers: {
-              'Content-type':'application/json'
-            }
-          }).then(res=>res.json()).then(res=>{
-           console.log(res);
-           props.updateRecords({
-            name: nameRef.current.value,
-            email: emailRef.current.value,
-            bgroup: bloodgGrpRef.current.value,
-            mobile: mobileRef.current.value,
-            sex: gender,
-            districts: districtRef.current.value,
-            dob: dobRef.current.value,
-            lastVisit: new Date().toISOString().slice(0, 10),
-            age,
-            ailments: ailmentRef.current.value,
-          });
-          setRecordSubmitted(true);
-          }).catch(err=>console.log(err));
-      
+      props.updateRecords({
+        name: nameRef.current.value,
+        email: emailRef.current.value,
+        bgroup: bloodgGrpRef.current.value,
+        mobile: mobileRef.current.value,
+        sex: gender,
+        districts: districtRef.current.value,
+        dob: dobRef.current.value,
+        lastVisit: new Date().toISOString().slice(0, 10),
+        age,
+        ailments: ailmentRef.current.value,
+      });
+
+      const patientUsername =
+        nameRef.current.value + Math.round(10000 + Math.random() * 9999999);
+      const patientPassword = randomPasswordGenerator();
+      alert(`username: ${patientUsername}, password: ${patientPassword}`);
+      setRecordSubmitted(true);
     } else {
       alert("Input values are not proper. Try again! ");
     }

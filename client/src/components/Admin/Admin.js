@@ -6,7 +6,7 @@ import { Redirect } from "react-router";
 import RegisterPatient from "./RegisterPatient/RegisterPatient";
 
 export default function Admin({ authorized }) {
-  useEffect(() => {
+  /* useEffect(() => {
     fetch("http://localhost:8080/admin/api/getAllPatients", {
       method: "GET",
       headers: {
@@ -16,7 +16,7 @@ export default function Admin({ authorized }) {
       .then((res) => res.json())
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-  }, []);
+  }, []); */
 
   const PATIENT_DETAILS = [
     {

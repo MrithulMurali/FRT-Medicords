@@ -17,11 +17,6 @@ function App() {
       setAuth(true);
     }
   };
-  /*  const userAuthHandler = (user) => {
-    if (user) {
-      setUserAuth(true);
-    }
-  }; */
   return (
     <Router>
       <React.Fragment>

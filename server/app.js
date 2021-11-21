@@ -1,47 +1,21 @@
 const express = require("express");
-
-
-const adminRoutes = require("./routes/admin");
-const loginRoutes = require("./routes/login");
-
-const bodyParser = require("body-parser");
-
-const sequelize = require("./utils/database");
-
-const Patient = require("./models/patient");
-const Ailments = require("./models/ailments");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const connect = require("./database/connection");
 
 const app = express();
+app.use(express.json());
 
-app.use(bodyParser.json());
+dotenv.config({ path: "./config.env" });
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-  );
-  next();
+//routes
+app.use("/api", require("./routes/router"));
+
+//database connection
+connect();
+
+const port = process.env.PORT || 8000;
+
+app.listen(port, () => {
+  console.log(`Server is listening on http://localhost:${port}`);
 });
-
-app.use('/admin',adminRoutes)
-app.use('/login',loginRoutes);
-
-// app.use("/",(req,res,next)=>{
-//     Patient.findById()
-// });
-
-const PORT = process.env.PORT || 8080;
-
-
-Ailments.belongsTo(Patient, {constraints: true, onDelete: 'CASCADE'});
-Patient.hasMany(Ailments);
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
-
-sequelize.sync(
-   //{force : true}
-).then(result=>{
-   // app.listen(PORT, console.log(`Server started on port ${PORT}`));
-}).catch(err => console.log(err));
-

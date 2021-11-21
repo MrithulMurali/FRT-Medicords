@@ -4,11 +4,13 @@
   "description": "An online portal for maintaining records of patients",
   "main": "app.js",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "mysql2": "^2.3.0",
-    "nodemon": "^2.0.13",
-    "sequelize": "^6.6.5"
+    "mongoose": "^6.0.13",
+    "nodemon": "^2.0.13"
   },
   "devDependencies": {},
   "scripts": {
