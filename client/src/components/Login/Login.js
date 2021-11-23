@@ -1,6 +1,8 @@
 import { React, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "../UI/Buttons/Button";
+import { useDispatch, useStore } from "react-redux";
+import { registerAction } from "../../container/action";
 import "./Login.css";
 
 export default function Login(props) {
@@ -30,6 +32,11 @@ export default function Login(props) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [adminIdValidity, setAdminIdValidity] = useState(null);
   const [userRnoValidity, setUserRnoValidity] = useState(null);
+
+  //UseDispatch
+
+  const dispatch = useDispatch();
+  const store = useStore();
 
   /*   const [adminPage, setAdminPage] = useState(false);
   const [adminAuth, setAdminAuth] = useState(false); */
@@ -152,8 +159,11 @@ export default function Login(props) {
         setErrorMessage("Form not valid yet! Try again!");
       }
     } else {
+      console.log(store.getState());
+
+      console.log(dispatch(registerAction("Action Creator")));
       if (unameValidity && passValidity && userRnoValidity) {
-        setErrorMessage("");
+        /*   setErrorMessage("");
         fetch("http://localhost:8080/login/api/verifyPatient", {
           method: "POST",
           body: JSON.stringify({
@@ -175,7 +185,17 @@ export default function Login(props) {
               alert("Invalid user credentials");
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err)); */
+        if (
+          userAccess.id === userRno &&
+          userAccess.name === uname &&
+          userAccess.pass === password
+        ) {
+          props.setAuth(true);
+          history.push("/user");
+        } else {
+          alert("Invalid user credentials");
+        }
       } else {
         setErrorMessage("Form not valid yet! Try again!");
       }
