@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { registerAction } from "../../../container/action";
+import { useDispatch } from "react-redux";
 import "./RegisterPatient.css";
 import { districts } from "../helperDistricts";
 
@@ -17,6 +19,8 @@ export default function RegisterPatient(props) {
     }
     return password;
   };
+
+  const dispatch = useDispatch();
 
   const nameRef = useRef();
   const emailRef = useRef();
@@ -63,10 +67,36 @@ export default function RegisterPatient(props) {
         ailments: ailmentRef.current.value,
       });
 
-      const patientUsername =
-        nameRef.current.value + Math.round(10000 + Math.random() * 9999999);
       const patientPassword = randomPasswordGenerator();
-      alert(`username: ${patientUsername}, password: ${patientPassword}`);
+      alert(` password: ${patientPassword}`);
+
+      /* const patient =  {
+        key: mobileRef.current.value,
+        password: patientPassword,
+        name: nameRef.current.value,
+        age,
+        bloodgrp: bloodgGrpRef.current.value,
+        ailment: ailmentRef.current.value,
+        gender,
+      } */
+      const patient = {
+        key: "1231412452",
+        password: "hello123",
+        name: "solwing",
+        age: "19",
+        bloodgrp: "O+",
+        ailment: "Healthy. No Ailment",
+        gender: "M",
+      };
+      const validate = dispatch(registerAction(patient));
+      validate
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
       setRecordSubmitted(true);
     } else {
       alert("Input values are not proper. Try again! ");

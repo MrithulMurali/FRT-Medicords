@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "../UI/Buttons/Button";
 import { useDispatch, useStore } from "react-redux";
-import { registerAction } from "../../container/action";
+import { loginAction } from "../../container/action";
 import "./Login.css";
 
 export default function Login(props) {
@@ -159,9 +159,23 @@ export default function Login(props) {
         setErrorMessage("Form not valid yet! Try again!");
       }
     } else {
+      const patientCred = {
+        key: "1111111112",
+        name: "tanuj",
+        password: "d1esada2",
+      };
+
+      const patientLogin = dispatch(loginAction(patientCred));
+
+      patientLogin
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       console.log(store.getState());
 
-      console.log(dispatch(registerAction("Action Creator")));
       if (unameValidity && passValidity && userRnoValidity) {
         /*   setErrorMessage("");
         fetch("http://localhost:8080/login/api/verifyPatient", {
