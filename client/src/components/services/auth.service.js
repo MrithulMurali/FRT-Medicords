@@ -7,14 +7,14 @@ export const register = (newPatient) => {
   //POST REQUEST on /api/register
 
   return axios
-    .post(`${baseURL}/register`, newPatient)
+    .post(`${baseURL}/register-user`, newPatient)
     .then((response) => {
-      if (response.data) {
-        return Promise.resolve(response.data);
+      if (response) {
+        return Promise.resolve(response);
       }
     })
     .catch((err) => {
-      return Promise.reject(err.response.data);
+      return Promise.reject(err.response);
     });
 };
 
@@ -32,4 +32,9 @@ export const login = (userCredential) => {
     .catch((error) => {
       return Promise.reject({ err: error.response.data });
     });
+};
+
+export const logout = () => {
+  localStorage.removeItem("x-access-token");
+  return { msg: "Logout successful!" };
 };

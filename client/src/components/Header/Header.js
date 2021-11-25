@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Aboutus from "../AboutUs/Aboutus";
 import ContactUs from "../ContactUs/ContactUs";
+import { logoutAction } from "../../container/action";
 
 export default function Header() {
+  const location = useLocation();
+  const dispatch = useDispatch();
+
   const [aboutUsActive, setAboutUsActive] = useState(false);
   const [contactUsActive, setContactUsActive] = useState(false);
 
@@ -14,6 +19,13 @@ export default function Header() {
   const closeContactHandler = () => {
     setContactUsActive(false);
   };
+
+  const logoutHandler = () => {
+    dispatch(logoutAction());
+  };
+
+  const loggedIn =
+    location.pathname === "/user" || location.pathname === "/admin";
   return (
     <React.Fragment>
       {aboutUsActive && <Aboutus onClickClose={closeAboutHandler} />}
@@ -25,24 +37,32 @@ export default function Header() {
             <h2>Medicords</h2>
           </div>
         </Link>
-        <ul className="links-container">
-          <li
-            className="link"
-            onClick={() => {
-              setAboutUsActive(true);
-            }}
-          >
-            About us
-          </li>
-          <li
-            className="link"
-            onClick={() => {
-              setContactUsActive(true);
-            }}
-          >
-            Contact us
-          </li>
-        </ul>
+        {!loggedIn ? (
+          <ul className="links-container">
+            <li
+              className="link"
+              onClick={() => {
+                setAboutUsActive(true);
+              }}
+            >
+              About us
+            </li>
+            <li
+              className="link"
+              onClick={() => {
+                setContactUsActive(true);
+              }}
+            >
+              Contact us
+            </li>
+          </ul>
+        ) : (
+          <div className="logout-container">
+            <Link to="/" onClick={logoutHandler} className="logout">
+              Logout <i className="fas fa-sign-out-alt"></i>
+            </Link>
+          </div>
+        )}
       </div>
     </React.Fragment>
   );

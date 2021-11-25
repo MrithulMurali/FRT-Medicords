@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
 
     if (!patient)
       return res.status(406).json({
-        err: "Oops.There was no patient registered with this mobile number.",
+        err: "Uh oh! No user registered with this mobile number.",
       });
 
     const isMatch = await bcrypt.compare(password, patient.password);

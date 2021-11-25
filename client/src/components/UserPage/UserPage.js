@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import UserRecord from "./Records/UserRecord";
 import "./UserPage.css";
-/* import { Redirect } from "react-router"; */
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-export default function UserPage({ authorized }) {
+export default function UserPage() {
   const [search, setSearch] = useState("");
+
+  const history = useHistory();
+
+  const route = () => {
+    const token = localStorage.getItem("x-access-token");
+    return token ? true : false;
+  };
+
+  useEffect(() => {
+    if (!route()) {
+      history.push("/login");
+    }
+  }, [history]);
 
   const PATIENT_DETAILS = [
     {
@@ -20,9 +33,6 @@ export default function UserPage({ authorized }) {
       ailments: "Aids",
     },
   ];
-  /*  if (!authorized) {
-    return <Redirect to="/login" />;
-  } */
   return (
     <div className="user-container">
       <div className="user-card">

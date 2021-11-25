@@ -88,18 +88,25 @@ export default function RegisterPatient(props) {
         ailment: "Healthy. No Ailment",
         gender: "M",
       };
-      const validate = dispatch(registerAction(patient));
+      const validate = dispatch(
+        registerAction({
+          key: mobileRef.current.value,
+          password: patientPassword,
+          name: nameRef.current.value,
+          age,
+          bloodgrp: bloodgGrpRef.current.value,
+          ailment: ailmentRef.current.value,
+          gender,
+        })
+      );
       validate
         .then((data) => {
           console.log(data);
+          setRecordSubmitted(true);
         })
         .catch((err) => {
-          console.log(err);
+          alert(err);
         });
-
-      setRecordSubmitted(true);
-    } else {
-      alert("Input values are not proper. Try again! ");
     }
   };
   const genderHandler = (e) => {

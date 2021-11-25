@@ -42,5 +42,20 @@ export const loginAction = (userCredential) => (dispatch) => {
           err: error.message || "Unexpected error occured while logging in.",
         },
       });
+      return Promise.reject(error);
     });
+};
+
+export const logoutAction = () => (dispatch) => {
+  try {
+    const msg = AuthService.logout();
+
+    dispatch({
+      type: actionTypes.LOGOUT,
+      payload: { msg },
+    });
+    return Promise.resolve(msg);
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };

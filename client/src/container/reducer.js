@@ -28,6 +28,12 @@ export default function rootReducer(state = initialState, action) {
         isLoggedIn: false,
         patient: null,
       };
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false,
+        patient: null,
+      };
 
     default:
       return state;

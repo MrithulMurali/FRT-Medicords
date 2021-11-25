@@ -12,13 +12,7 @@ export default function Login(props) {
     name: "admin",
     pass: "admin",
   };
-  let userAccess = {
-    id: "6969696969",
-    name: "user",
-    pass: "user",
-  };
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isUser, setIsUser] = useState(false);
   //Input storing handlers
   const [uname, setUname] = useState("");
   const [password, setPassword] = useState("");
@@ -114,104 +108,37 @@ export default function Login(props) {
           uname === adminAccess.name &&
           password === adminAccess.pass
         ) {
-          /* fetch("http://localhost:8080/login/api/verifyAdmin", {
-            method: "POST",
-            body: JSON.stringify({
-              ref_no: adminAccess.id,
-              username: adminAccess.name,
-              password: adminAccess.pass,
-            }),
-            headers: {
-              "Content-type": "application/json",
-            },
-          })
-            .then((res) => res.json())
-            .then((res) => {
-              console.log(res);
-              if (res.message === "ok") {
-                props.setAuth(true);
-                history.push("/admin");
-              } else {
-                alert("Invalid user credentials");
-              }
-            })
-            .catch((err) => console.log(err)); */
-
           props.setAuth(true);
           history.push("/admin");
         } else {
           setErrorMessage("Incorrect credentials!");
         }
-        // fetch("http://localhost:8080/check/getUser",{
-        //   method: 'POST',
-        //   body: JSON.stringify({
-        //     username : uname,
-        //     password : password,
-        //     adminId : adminId
-        //   }),
-        //   headers: {
-        //     'Content-type':'application/json'
-        //   }
-        // }).then(res=>res.json()).then(res=>console.log(res)).catch(err=>console.log(err));
-
         setErrorMessage("");
       } else {
         setErrorMessage("Form not valid yet! Try again!");
       }
     } else {
-      const patientCred = {
-        key: "1111111112",
-        name: "tanuj",
-        password: "d1esada2",
-      };
-
-      const patientLogin = dispatch(loginAction(patientCred));
-
-      patientLogin
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      console.log(store.getState());
-
       if (unameValidity && passValidity && userRnoValidity) {
-        /*   setErrorMessage("");
-        fetch("http://localhost:8080/login/api/verifyPatient", {
-          method: "POST",
-          body: JSON.stringify({
-            ref_no: userAccess.id,
-            username: userAccess.name,
-            password: userAccess.pass,
-          }),
-          headers: {
-            "Content-type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((res) => {
-            console.log(res);
-            if (res.message === "ok") {
-              props.setAuth(true);
-              history.push("/user");
-            } else {
-              alert("Invalid user credentials");
-            }
+        /* const patientCred = {
+          key: "1231412452",
+          name: "solwing",
+          password: "hello123",
+        }; */
+
+        const patientLogin = dispatch(
+          loginAction({ key: userRno, name: uname, password })
+        );
+
+        patientLogin
+          .then((data) => {
+            props.setAuth(true);
+            history.push("/user");
           })
-          .catch((err) => console.log(err)); */
-        if (
-          userAccess.id === userRno &&
-          userAccess.name === uname &&
-          userAccess.pass === password
-        ) {
-          props.setAuth(true);
-          history.push("/user");
-        } else {
-          alert("Invalid user credentials");
-        }
-      } else {
-        setErrorMessage("Form not valid yet! Try again!");
+          .catch((error) => {
+            setErrorMessage(error.err.err);
+            console.log(error.err.err);
+          });
+        console.log(store.getState());
       }
     }
   };
@@ -224,7 +151,6 @@ export default function Login(props) {
           <button
             onClick={() => {
               setIsAdmin(true);
-              setIsUser(false);
               setErrorMessage("");
             }}
           >
@@ -233,7 +159,6 @@ export default function Login(props) {
           <button
             onClick={() => {
               setIsAdmin(false);
-              setIsUser(true);
               setErrorMessage("");
             }}
           >
@@ -250,7 +175,7 @@ export default function Login(props) {
                 htmlFor="userref"
                 id="user-ref-label"
                 onClick={() => {
-                  alert("Your unique reference number/Aadhar number:");
+                  alert("Your unique reference number/Mobile Number:");
                 }}
                 style={{
                   color: `${userRnoValidity !== false ? "black" : "red"}`,
