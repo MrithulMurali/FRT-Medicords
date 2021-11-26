@@ -4,7 +4,7 @@ import "./UserPage.css";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-export default function UserPage() {
+export default function UserPage(props) {
   const [search, setSearch] = useState("");
 
   const history = useHistory();

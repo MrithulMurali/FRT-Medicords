@@ -26,6 +26,7 @@ export default function Login(props) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [adminIdValidity, setAdminIdValidity] = useState(null);
   const [userRnoValidity, setUserRnoValidity] = useState(null);
+  const [loggedUserDetails, setLoggedUserDetails] = useState(null);
 
   //UseDispatch
 
@@ -131,8 +132,9 @@ export default function Login(props) {
 
         patientLogin
           .then((data) => {
+            console.log(data);
             props.setAuth(true);
-            history.push("/user");
+            history.push(`/user/${data.key}`);
           })
           .catch((error) => {
             setErrorMessage(error.err.err);

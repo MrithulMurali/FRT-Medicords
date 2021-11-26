@@ -68,6 +68,8 @@ exports.login = async (req, res) => {
 
     const patient = await PatientDetails.findOne({ key });
 
+    console.log(patient);
+
     if (!patient)
       return res.status(406).json({
         err: "Uh oh! No user registered with this mobile number.",
@@ -78,14 +80,20 @@ exports.login = async (req, res) => {
     if (!isMatch) return res.status(406).json({ err: "Invalid credentials!" });
 
     //crete jwt token
-    const token = jwt.sign({ id: patient._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: patient._id }, `${process.env.JWT_SECRET}`, {
+      expiresIn: "1h",
+    });
     console.log(token);
 
     res.json({
       token,
       key: patient.key,
       name: patient.name,
-      ailment: patient.ailments,
+      ailment: patient.ailment,
+      bloodgrp: patient.bloodgrp,
+      age: patient.age,
+      gender: patient.gender,
+      lastVisit: patient.lastVisit,
     });
   } catch (error) {
     res.status(500).json({
@@ -108,7 +116,7 @@ exports.delete = async (req, res) => {
   }
 };
 
-// Patient data
+// Admin Patient data
 
 exports.patientData = (req, res) => {
   PatientDetails.find()
@@ -135,4 +143,26 @@ exports.patientData = (req, res) => {
         .status(500)
         .json({ error: err.message || "Error while fetching data!" })
     );
+};
+
+//Logged patient data
+
+exports.loggedUserdata = (req, res) => {
+  const key = req.params.key;
+
+  PatientDetails.find({ key })
+    .then((data) => {
+      if (data) {
+        res.json(data);
+      } else {
+        res
+          .status(404)
+          .json({ err: `No user found with the mobilenumber ${key}` });
+      }
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ err: error.message || "Error occurred while fetching data" });
+    });
 };
