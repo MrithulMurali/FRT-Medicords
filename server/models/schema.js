@@ -30,6 +30,10 @@ const patientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  lastVisit: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = PatientDetails = mongoose.model("patient", patientSchema);

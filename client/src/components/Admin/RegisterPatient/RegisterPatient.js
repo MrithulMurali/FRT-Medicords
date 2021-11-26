@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { registerAction } from "../../../container/action";
 import { useDispatch } from "react-redux";
 import "./RegisterPatient.css";
-import { districts } from "../helperDistricts";
+import { v4 as uuidv4 } from "uuid";
+import { states } from "../helper/states";
 
 export default function RegisterPatient(props) {
   const randomPasswordGenerator = () => {
@@ -26,7 +27,7 @@ export default function RegisterPatient(props) {
   const emailRef = useRef();
   const bloodgGrpRef = useRef();
   const mobileRef = useRef();
-  const districtRef = useRef();
+  const stateRef = useRef();
   const dobRef = useRef();
   const ailmentRef = useRef();
   const [gender, setGender] = useState(null);
@@ -54,40 +55,20 @@ export default function RegisterPatient(props) {
       /\d/.test(mobileRef.current.value) &&
       ailmentRef.current.value.trim() !== ""
     ) {
-      props.updateRecords({
+      /*  props.updateRecords({
         name: nameRef.current.value,
         email: emailRef.current.value,
         bgroup: bloodgGrpRef.current.value,
         mobile: mobileRef.current.value,
         sex: gender,
-        districts: districtRef.current.value,
+        districts: stateRef.current.value,
         dob: dobRef.current.value,
         lastVisit: new Date().toISOString().slice(0, 10),
         age,
         ailments: ailmentRef.current.value,
-      });
-
+      }); */
       const patientPassword = randomPasswordGenerator();
       alert(` password: ${patientPassword}`);
-
-      /* const patient =  {
-        key: mobileRef.current.value,
-        password: patientPassword,
-        name: nameRef.current.value,
-        age,
-        bloodgrp: bloodgGrpRef.current.value,
-        ailment: ailmentRef.current.value,
-        gender,
-      } */
-      const patient = {
-        key: "1231412452",
-        password: "hello123",
-        name: "solwing",
-        age: "19",
-        bloodgrp: "O+",
-        ailment: "Healthy. No Ailment",
-        gender: "M",
-      };
       const validate = dispatch(
         registerAction({
           key: mobileRef.current.value,
@@ -97,6 +78,7 @@ export default function RegisterPatient(props) {
           bloodgrp: bloodgGrpRef.current.value,
           ailment: ailmentRef.current.value,
           gender,
+          lastVisit: new Date().toISOString().slice(0, 10),
         })
       );
       validate
@@ -105,7 +87,7 @@ export default function RegisterPatient(props) {
           setRecordSubmitted(true);
         })
         .catch((err) => {
-          alert(err);
+          alert(err.message);
         });
     }
   };
@@ -205,7 +187,7 @@ export default function RegisterPatient(props) {
                         padding: "10px",
                       }}
                     >
-                      <label className="mb-3 mr-1" for="gender">
+                      <label className="mb-3 mr-1" htmlFor="gender">
                         Gender:{" "}
                       </label>
 
@@ -215,13 +197,13 @@ export default function RegisterPatient(props) {
                         name="gender"
                         id="male"
                         value="M"
-                        autocomplete="off"
+                        autoComplete="off"
                         required
                         onChange={genderHandler}
                       />
                       <label
                         className="btn btn-sm btn-outline-secondary"
-                        for="male"
+                        htmlFor="male"
                       >
                         Male
                       </label>
@@ -232,13 +214,13 @@ export default function RegisterPatient(props) {
                         name="gender"
                         id="female"
                         value="F"
-                        autocomplete="off"
+                        autoComplete="off"
                         required
                         onChange={genderHandler}
                       />
                       <label
                         className="btn btn-sm btn-outline-secondary"
-                        for="female"
+                        htmlFor="female"
                       >
                         Female
                       </label>
@@ -249,13 +231,13 @@ export default function RegisterPatient(props) {
                         name="gender"
                         id="secret"
                         value="N.S"
-                        autocomplete="off"
+                        autoComplete="off"
                         required
                         onChange={genderHandler}
                       />
                       <label
                         className="btn btn-sm btn-outline-secondary"
-                        for="secret"
+                        htmlFor="secret"
                       >
                         Secret
                       </label>
@@ -271,7 +253,7 @@ export default function RegisterPatient(props) {
                       style={{ margin: "20px 0px 30px 0px" }}
                     >
                       <label
-                        for="date"
+                        htmlFor="date"
                         style={{
                           fontSize: "1.2rem",
                           marginRight: "10px",
@@ -295,20 +277,14 @@ export default function RegisterPatient(props) {
                         </div> */}
                     </div>
                     <div className="col-md-12" style={{ margin: "25px 0px" }}>
-                      <select ref={districtRef}>
-                        <option disabled hidden>
-                          District
-                        </option>
-                        {districts.map((district) => (
-                          <option value={district}>{district}</option>
+                      <select ref={stateRef}>
+                        <option disabled>State</option>
+                        {states.map((state) => (
+                          <option key={uuidv4()} value={state}>
+                            {state}
+                          </option>
                         ))}
                       </select>
-                      {/* <div className="valid-feedback">
-                          You selected a position!
-                        </div>
-                        <div className="invalid-feedback">
-                          Please select a position!
-                        </div> */}
                     </div>
 
                     <div className="ailments">

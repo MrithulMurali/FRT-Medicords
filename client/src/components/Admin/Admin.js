@@ -4,21 +4,10 @@ import "./Admin.css";
 import { useState } from "react";
 import { Redirect } from "react-router";
 import RegisterPatient from "./RegisterPatient/RegisterPatient";
+import axios from "axios";
 
 export default function Admin({ authorized }) {
-  /* useEffect(() => {
-    fetch("http://localhost:8080/admin/api/getAllPatients", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, []); */
-
-  const PATIENT_DETAILS = [
+  /* const PATIENT_DETAILS = [
     {
       id: "r1",
       name: "Tanuj",
@@ -50,11 +39,30 @@ export default function Admin({ authorized }) {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis minima dignissimos, aperiam ex perferendis cum minus necessitatibus a id debitis sequi assumenda incidunt laboriosam soluta pariatur voluptas facere magni itaque!Quas consequatur ipsum dicta qui! Quia a at distinctio. Harum est ab repellendus autem tempora! Quasi qui aliquam alias voluptatibus nihil cupiditate dolore praesentium, nesciunt temporibus facere maiores, sint iste?",
     },
   ];
-
+ */
   const [recordsActive, setRecordsActive] = useState(true);
   const [recordFormActive, setRecordFormActive] = useState(false);
-  const [updatedRecords, setUpdatedRecords] = useState(PATIENT_DETAILS);
+  const [records, setRecords] = useState([]);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const getPatientData = async () => {
+      if (recordsActive) {
+        try {
+          const response = await axios.get(
+            "http://localhost:4000/api/patient-data"
+          );
+          console.log(response);
+          const patientData = response.data;
+          setRecords(patientData);
+        } catch (error) {
+          alert(error);
+        }
+      }
+    };
+    getPatientData();
+  }, [recordsActive]);
+
   const searchRecordsHandler = () => {
     setRecordsActive(true);
     setRecordFormActive(false);
@@ -62,12 +70,6 @@ export default function Admin({ authorized }) {
   const addRecordsHandler = () => {
     setRecordsActive(false);
     setRecordFormActive(true);
-  };
-
-  const updatedRecordsHandler = (newRecord) => {
-    setUpdatedRecords((prevRecord) => {
-      return [newRecord, ...prevRecord];
-    });
   };
   if (!authorized) {
     return <Redirect to="/login" />;
@@ -126,41 +128,43 @@ export default function Admin({ authorized }) {
           <div className="record-container">
             <h2>Patient Records</h2>
             <table>
-              <tr>
-                <th>Name</th>
-                <th>Blood Group</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Last Visit</th>
-                <th>Ailments</th>
-                <th></th>
-              </tr>
-              {updatedRecords
-                .filter((details) => {
-                  if (search === "") {
-                    return details;
-                  } else if (
-                    details.name.toLowerCase().includes(search.toLowerCase())
-                  ) {
-                    return details;
-                  }
-                })
-                .map((details) => (
-                  <AdminRecords
-                    key={details.id}
-                    name={details.name}
-                    bgroup={details.bgroup}
-                    age={details.age}
-                    sex={details.sex}
-                    lastVisit={details.lastVisit}
-                    ailments={details.ailments}
-                  />
-                ))}{" "}
+              <tbody>
+                <tr>
+                  <th>Name</th>
+                  <th>Blood Group</th>
+                  <th>Age</th>
+                  <th>Sex</th>
+                  <th>Last Visit</th>
+                  <th>Ailments</th>
+                  {/* <th></th> */}
+                </tr>
+                {records
+                  .filter((details) => {
+                    if (search === "") {
+                      return details;
+                    } else if (
+                      details.name.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                      return details;
+                    }
+                  })
+                  .map((details) => (
+                    <AdminRecords
+                      key={details._id}
+                      name={details.name}
+                      bgroup={details.bloodgrp}
+                      age={details.age}
+                      sex={details.gender}
+                      lastVisit={details.lastVisit}
+                      ailments={details.ailment}
+                    />
+                  ))}
+              </tbody>
             </table>
           </div>
         </div>
       ) : (
-        <RegisterPatient updateRecords={updatedRecordsHandler} />
+        <RegisterPatient />
       )}
     </div>
   );

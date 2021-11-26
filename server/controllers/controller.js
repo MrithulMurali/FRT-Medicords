@@ -9,7 +9,8 @@ exports.registerUser = async (req, res) => {
       res.status(406).json({ err: "You have fill the registration details!" });
       return;
     }
-    let { name, bloodgrp, age, key, ailment, gender, password } = req.body;
+    let { name, bloodgrp, age, key, ailment, gender, password, lastVisit } =
+      req.body;
 
     //hashing password
     const hash = await bcrypt.hashSync(password, 10);
@@ -24,6 +25,7 @@ exports.registerUser = async (req, res) => {
       age,
       ailment,
       gender,
+      lastVisit,
     });
 
     patientDetails
@@ -104,4 +106,33 @@ exports.delete = async (req, res) => {
       .status(500)
       .json({ error: err.message || "Error while deleting the user!" });
   }
+};
+
+// Patient data
+
+exports.patientData = (req, res) => {
+  PatientDetails.find()
+    .then((data) => {
+      const newArray = [];
+      for (let i = 0; i < data.length; i++) {
+        const { _id, name, bloodgrp, age, gender, ailment, lastVisit } =
+          data[i];
+        const updatedValues = {
+          _id,
+          name,
+          bloodgrp,
+          age,
+          gender,
+          ailment,
+          lastVisit,
+        };
+        newArray.push(updatedValues);
+      }
+      res.json(newArray);
+    })
+    .catch((err) =>
+      res
+        .status(500)
+        .json({ error: err.message || "Error while fetching data!" })
+    );
 };

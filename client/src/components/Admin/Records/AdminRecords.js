@@ -10,11 +10,11 @@ export default function AdminRecords(props) {
       <td>{props.sex}</td>
       <td>{props.lastVisit}</td>
       <td>{props.ailments}</td>
-      <td>
+      {/* <td>
         <button className="record-edit">
           <i className="fas fa-edit"></i>
         </button>
-      </td>
+      </td> */}
     </tr>
   );
 }

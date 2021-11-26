@@ -16,7 +16,7 @@ export const registerAction = (payload) => (dispatch) => {
       dispatch({
         type: actionTypes.REGISTER_FAIL,
         payload: {
-          err: error.message || "Unexpected error occured while registering!",
+          err: "Unexpected error occured while registering!",
         },
       });
 
