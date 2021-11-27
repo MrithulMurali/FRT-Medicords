@@ -25,7 +25,9 @@ export default function Header() {
   };
 
   const loggedIn =
-    location.pathname === "/user" || location.pathname === "/admin";
+    location.pathname !== "/" &&
+    location.pathname !== "/login" &&
+    location.pathname !== "/signup";
   return (
     <React.Fragment>
       {aboutUsActive && <Aboutus onClickClose={closeAboutHandler} />}

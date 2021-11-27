@@ -2,17 +2,40 @@ import React, { useEffect } from "react";
 import UserRecord from "./Records/UserRecord";
 import "./UserPage.css";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function UserPage(props) {
+  const location = useLocation();
+  const path = location.pathname;
+  const key = path.slice(6);
   const [search, setSearch] = useState("");
-
+  const [patientData, setPatientData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
 
   const route = () => {
     const token = localStorage.getItem("x-access-token");
     return token ? true : false;
   };
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        console.log(key);
+        setIsLoading(true);
+        const response = await axios.get(
+          `http://localhost:4000/api/user/${key}`
+        );
+        const userData = response.data;
+        setPatientData(userData);
+        if (userData) setIsLoading(false);
+      } catch (error) {
+        alert(error);
+      }
+    };
+    fetchUserDetails();
+  }, [key]);
 
   useEffect(() => {
     if (!route()) {
@@ -33,7 +56,7 @@ export default function UserPage(props) {
       ailments: "Aids",
     },
   ];
-  return (
+  return !isLoading ? (
     <div className="user-container">
       <div className="user-card">
         <img
@@ -41,18 +64,18 @@ export default function UserPage(props) {
           alt="profile"
         />
         <div className="card-details">
-          <h2>Tanuj Vijayakumar</h2>
-          <p>+91 6969696969</p>
+          <h2>{patientData.name}</h2>
+          <p>+91 {patientData.key}</p>
           <p>
-            Blood Group: <b>O+</b>
+            Blood Group: <b>{patientData.bloodgrp}</b>
           </p>
           <p>
-            Age: <b>19</b>
+            Age: <b>{patientData.age}</b>
           </p>
           <p>
-            Sex: <b>M</b>
+            Sex: <b>{patientData.gender}</b>
           </p>
-          <p>Vijaya@mailing.com</p>
+          {/* <p>Vijaya@mailing.com</p> */}
         </div>
       </div>
       <div>
@@ -81,7 +104,7 @@ export default function UserPage(props) {
               <th>Previous Visit</th>
               <th>Ailments</th>
             </tr>
-            {PATIENT_DETAILS.filter((details) => {
+            {/* {PATIENT_DETAILS.filter((details) => {
               if (search === "") {
                 return details;
               } else if (
@@ -89,17 +112,19 @@ export default function UserPage(props) {
               ) {
                 return details;
               }
-            }).map((details) => (
-              <UserRecord
-                key={details.id}
-                lastVisit={details.lastVisit}
-                ailments={details.ailments}
-              />
-            ))}{" "}
+            }).map((details) => ( */}
+            <UserRecord
+              key={patientData._id}
+              lastVisit={patientData.lastVisit}
+              ailments={patientData.ailment}
+            />
+            {/*  ))}{" "} */}
           </table>
         </div>
       </div>
       )
     </div>
+  ) : (
+    <p style={{ textAlign: "center", fontSize: "1.2rem" }}>Loading data...</p>
   );
 }

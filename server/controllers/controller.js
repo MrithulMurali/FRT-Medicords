@@ -153,7 +153,20 @@ exports.loggedUserdata = (req, res) => {
   PatientDetails.find({ key })
     .then((data) => {
       if (data) {
-        res.json(data);
+        data.forEach((response) => {
+          const { _id, key, name, age, bloodgrp, ailment, gender, lastVisit } =
+            response;
+          res.json({
+            _id,
+            key,
+            name,
+            age,
+            bloodgrp,
+            ailment,
+            gender,
+            lastVisit,
+          });
+        });
       } else {
         res
           .status(404)

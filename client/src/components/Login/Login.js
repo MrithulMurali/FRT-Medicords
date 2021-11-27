@@ -26,7 +26,6 @@ export default function Login(props) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [adminIdValidity, setAdminIdValidity] = useState(null);
   const [userRnoValidity, setUserRnoValidity] = useState(null);
-  const [loggedUserDetails, setLoggedUserDetails] = useState(null);
 
   //UseDispatch
 
@@ -125,6 +124,7 @@ export default function Login(props) {
           name: "solwing",
           password: "hello123",
         }; */
+        props.userKey(userRno);
 
         const patientLogin = dispatch(
           loginAction({ key: userRno, name: uname, password })
@@ -132,7 +132,6 @@ export default function Login(props) {
 
         patientLogin
           .then((data) => {
-            console.log(data);
             props.setAuth(true);
             history.push(`/user/${data.key}`);
           })

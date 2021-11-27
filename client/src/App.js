@@ -12,6 +12,7 @@ import UserPage from "./components/UserPage/UserPage";
 
 function App() {
   const [auth, setAuth] = useState(false);
+  const [userKey, setUserkey] = useState(null);
   const adminAuthHandler = (admin) => {
     if (admin) {
       setAuth(true);
@@ -27,12 +28,17 @@ function App() {
             <Signup />
           </Route>
           <Route exact path="/login">
-            <Login setAuth={adminAuthHandler} />
+            <Login
+              setAuth={adminAuthHandler}
+              userKey={(key) => {
+                setUserkey(key);
+              }}
+            />
           </Route>
           <Route exact path="/admin">
             <Admin authorized={auth} />
           </Route>
-          <Route exact path="/user">
+          <Route path="/user" userKey={userKey}>
             <UserPage />
           </Route>
           <NotFound />

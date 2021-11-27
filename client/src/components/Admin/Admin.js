@@ -52,7 +52,6 @@ export default function Admin({ authorized }) {
           const response = await axios.get(
             "http://localhost:4000/api/patient-data"
           );
-          console.log(response);
           const patientData = response.data;
           setRecords(patientData);
         } catch (error) {
