@@ -23,7 +23,23 @@
   padding: 60px;
   transform: translateX(10px);
 }
+.form-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.form-existing {
+  cursor: pointer;
+  transition: 0.2s all ease;
+}
+.form-existing:hover {
+  color: #010a85;
+}
+.form-existing:active {
+  transform: translateX(10px);
+}
 .form-content .form-items {
   padding: 50px;
   background: #ecf4ff;
@@ -155,6 +171,9 @@
 .btn {
   padding: 10px 20px;
   border-radius: 15px;
+}
+.mobile {
+  margin: 20px 0 40px 0;
 }
 /* .mv-up {
   margin-top: -9px !important;

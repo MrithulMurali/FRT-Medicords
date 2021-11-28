@@ -33,6 +33,7 @@ export default function RegisterPatient(props) {
   const [gender, setGender] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [recordSubmitted, setRecordSubmitted] = useState(false);
+  const [exisitingRecordForm, setExisitingRecordForm] = useState(false);
 
   const todayDate = new Date().toISOString().split("T")[0];
   //UseEffect
@@ -55,20 +56,9 @@ export default function RegisterPatient(props) {
       /\d/.test(mobileRef.current.value) &&
       ailmentRef.current.value.trim() !== ""
     ) {
-      /*  props.updateRecords({
-        name: nameRef.current.value,
-        email: emailRef.current.value,
-        bgroup: bloodgGrpRef.current.value,
-        mobile: mobileRef.current.value,
-        sex: gender,
-        districts: stateRef.current.value,
-        dob: dobRef.current.value,
-        lastVisit: new Date().toISOString().slice(0, 10),
-        age,
-        ailments: ailmentRef.current.value,
-      }); */
       const patientPassword = randomPasswordGenerator();
-      alert(` password: ${patientPassword}`);
+      alert("Account registered successfully! Click 'OK' to view password");
+      alert(` Password: ${patientPassword}. Use this password login.`);
       const validate = dispatch(
         registerAction({
           key: mobileRef.current.value,
@@ -91,9 +81,14 @@ export default function RegisterPatient(props) {
         });
     }
   };
-  const genderHandler = (e) => {
-    setGender(e.target.value);
-  };
+const exisitingRecordHandler = ()=>{
+  if (
+    /\d/.test(mobileRef.current.value) &&
+    ailmentRef.current.value.trim() !== ""
+  ) {
+    const 
+
+}
   return (
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       <div className="form-body">
@@ -101,231 +96,256 @@ export default function RegisterPatient(props) {
           <div className="form-holder">
             <div className="form-content">
               <div className="form-items">
-                <h3>Register Patient</h3>
+                <div className="form-header">
+                  <h3>Register Patient</h3>
+                  <span
+                    className="form-existing"
+                    onClick={() => {
+                      setExisitingRecordForm((prev) => !prev);
+                    }}
+                  >
+                    {!exisitingRecordForm ? "Exisiting users?" : "Back"}{" "}
+                    <i class="fas fa-angle-double-right"></i>
+                  </span>
+                </div>
                 <p>Fill in the data below.</p>
                 {!isSubmitting ? (
-                  <form
-                    className="requires-validation"
-                    noValidate
-                    onSubmit={registerHandler}
-                  >
-                    <div className="col-md-12">
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="name"
-                        ref={nameRef}
-                        placeholder="Full Name"
-                        required
-                      />
-                      {/* <div className="valid-feedback">
-                          Username field is valid!
-                        </div>
-                        <div className="invalid-feedback">
-                          Username field cannot be blank!
-                        </div> */}
-                    </div>
-
-                    <div className="col-md-12">
-                      <input
-                        className="form-control"
-                        type="email"
-                        name="email"
-                        ref={emailRef}
-                        placeholder="E-mail Address"
-                        required
-                      />
-                      {/* <div className="valid-feedback">Email field is valid!</div>
-                        <div className="invalid-feedback">
-                          Email field cannot be blank!
-                        </div> */}
-                    </div>
-
-                    <div className="col-md-12">
-                      <select ref={bloodgGrpRef}>
-                        <option>Blood Group</option>
-                        <option>O+</option>
-                        <option>O-</option>
-                        <option>A+</option>
-                        <option>A-</option>
-                        <option>B+</option>
-                        <option>B-</option>
-                        <option>AB+</option>
-                        <option>AB-</option>
-                      </select>
-                      {/* <div className="valid-feedback">
-                          You selected a position!
-                        </div>
-                        <div className="invalid-feedback">
-                          Please select a position!
-                        </div> */}
-                    </div>
-
-                    <div className="col-md-12">
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="mobile"
-                        placeholder="Mobile Number"
-                        maxLength="13"
-                        required
-                        ref={mobileRef}
-                      />
-                      {/*  <div className="valid-feedback">
-                          Password field is valid!
-                        </div>
-                        <div className="invalid-feedback">
-                          Password field cannot be blank!
-                        </div> */}
-                    </div>
-
-                    <div
-                      className="col-md-12 mt-3"
-                      style={{
-                        marginTop: "2rem",
-                        fontSize: "1.2rem",
-                        padding: "10px",
-                      }}
+                  !exisitingRecordForm ? (
+                    <form
+                      className="requires-validation"
+                      noValidate
+                      onSubmit={registerHandler}
                     >
-                      <label className="mb-3 mr-1" htmlFor="gender">
-                        Gender:{" "}
-                      </label>
+                      <div className="col-md-12">
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="name"
+                          ref={nameRef}
+                          placeholder="Full Name"
+                          required
+                        />
+                      </div>
 
-                      <input
-                        type="radio"
-                        className="btn-check"
-                        name="gender"
-                        id="male"
-                        value="M"
-                        autoComplete="off"
-                        required
-                        onChange={genderHandler}
-                      />
-                      <label
-                        className="btn btn-sm btn-outline-secondary"
-                        htmlFor="male"
-                      >
-                        Male
-                      </label>
+                      <div className="col-md-12">
+                        <input
+                          className="form-control"
+                          type="email"
+                          name="email"
+                          ref={emailRef}
+                          placeholder="E-mail Address"
+                          required
+                        />
+                      </div>
 
-                      <input
-                        type="radio"
-                        className="btn-check"
-                        name="gender"
-                        id="female"
-                        value="F"
-                        autoComplete="off"
-                        required
-                        onChange={genderHandler}
-                      />
-                      <label
-                        className="btn btn-sm btn-outline-secondary"
-                        htmlFor="female"
-                      >
-                        Female
-                      </label>
+                      <div className="col-md-12">
+                        <select ref={bloodgGrpRef}>
+                          <option>Blood Group</option>
+                          <option>O+</option>
+                          <option>O-</option>
+                          <option>A+</option>
+                          <option>A-</option>
+                          <option>B+</option>
+                          <option>B-</option>
+                          <option>AB+</option>
+                          <option>AB-</option>
+                        </select>
+                      </div>
 
-                      <input
-                        type="radio"
-                        className="btn-check"
-                        name="gender"
-                        id="secret"
-                        value="N.S"
-                        autoComplete="off"
-                        required
-                        onChange={genderHandler}
-                      />
-                      <label
-                        className="btn btn-sm btn-outline-secondary"
-                        htmlFor="secret"
-                      >
-                        Secret
-                      </label>
-                      {/*   <div className="valid-feedback mv-up">
-                          You selected a gender!
-                        </div>
-                        <div className="invalid-feedback mv-up">
-                          Please select a gender!
-                        </div> */}
-                    </div>
-                    <div
-                      className="col-md-12 date-container"
-                      style={{ margin: "20px 0px 30px 0px" }}
-                    >
-                      <label
-                        htmlFor="date"
+                      <div className="col-md-12">
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="mobile"
+                          placeholder="Mobile Number"
+                          maxLength="13"
+                          required
+                          ref={mobileRef}
+                        />
+                      </div>
+
+                      <div
+                        className="col-md-12 mt-3"
                         style={{
+                          marginTop: "2rem",
                           fontSize: "1.2rem",
-                          marginRight: "10px",
-                          marginLeft: "10px",
+                          padding: "10px",
                         }}
                       >
-                        {" "}
-                        Date of birth:{" "}
-                      </label>
-                      <input
-                        className="form-control"
-                        type="date"
-                        name="date"
-                        required
-                        max={todayDate}
-                        ref={dobRef}
-                      />
-                      {/* <div className="valid-feedback">Email field is valid!</div>
-                        <div className="invalid-feedback">
-                          Email field cannot be blank!
-                        </div> */}
-                    </div>
-                    <div className="col-md-12" style={{ margin: "25px 0px" }}>
-                      <select ref={stateRef}>
-                        <option disabled>State</option>
-                        {states.map((state) => (
-                          <option key={uuidv4()} value={state}>
-                            {state}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                        <label className="mb-3 mr-1" htmlFor="gender">
+                          Gender:{" "}
+                        </label>
 
-                    <div className="ailments">
-                      <textarea
-                        className="form-ailments"
-                        id="invalidCheck"
-                        placeholder="Ailments/Reason of visit"
-                        ref={ailmentRef}
-                        required
-                      />
+                        <input
+                          type="radio"
+                          className="btn-check"
+                          name="gender"
+                          id="male"
+                          value="M"
+                          autoComplete="off"
+                          required
+                          onChange={() => {
+                            setGender(e.target.value);
+                          }}
+                        />
+                        <label
+                          className="btn btn-sm btn-outline-secondary"
+                          htmlFor="male"
+                        >
+                          Male
+                        </label>
 
-                      {/* <div className="invalid-feedback">
-                          Please confirm that the entered data are all correct!
-                        </div> */}
-                    </div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="invalidCheck"
-                        required
-                      />
-                      <label className="form-check-label">
-                        I confirm that all data are correct
-                      </label>
-                      {/* <div className="invalid-feedback">
-                          Please confirm that the entered data are all correct!
-                        </div> */}
-                    </div>
+                        <input
+                          type="radio"
+                          className="btn-check"
+                          name="gender"
+                          id="female"
+                          value="F"
+                          autoComplete="off"
+                          required
+                          onChange={genderHandler}
+                        />
+                        <label
+                          className="btn btn-sm btn-outline-secondary"
+                          htmlFor="female"
+                        >
+                          Female
+                        </label>
 
-                    <div className="form-button mt-3">
-                      <button
-                        id="submit"
-                        type="submit"
-                        className="btn btn-primary"
+                        <input
+                          type="radio"
+                          className="btn-check"
+                          name="gender"
+                          id="secret"
+                          value="N.S"
+                          autoComplete="off"
+                          required
+                          onChange={genderHandler}
+                        />
+                        <label
+                          className="btn btn-sm btn-outline-secondary"
+                          htmlFor="secret"
+                        >
+                          Secret
+                        </label>
+                      </div>
+                      <div
+                        className="col-md-12 date-container"
+                        style={{ margin: "20px 0px 30px 0px" }}
                       >
-                        Register
-                      </button>
-                    </div>
-                  </form>
+                        <label
+                          htmlFor="date"
+                          style={{
+                            fontSize: "1.2rem",
+                            marginRight: "10px",
+                            marginLeft: "10px",
+                          }}
+                        >
+                          {" "}
+                          Date of birth:{" "}
+                        </label>
+                        <input
+                          className="form-control"
+                          type="date"
+                          name="date"
+                          required
+                          max={todayDate}
+                          ref={dobRef}
+                        />
+                      </div>
+                      <div className="col-md-12" style={{ margin: "25px 0px" }}>
+                        <select ref={stateRef}>
+                          <option disabled>State</option>
+                          {states.map((state) => (
+                            <option key={uuidv4()} value={state}>
+                              {state}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="ailments">
+                        <textarea
+                          className="form-ailments"
+                          id="invalidCheck"
+                          placeholder="Ailments/Reason of visit"
+                          ref={ailmentRef}
+                          required
+                        />
+                      </div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="invalidCheck"
+                          required
+                        />
+                        <label className="form-check-label">
+                          I confirm that all data are correct
+                        </label>
+                      </div>
+
+                      <div className="form-button mt-3">
+                        <button
+                          id="submit"
+                          type="submit"
+                          className="btn btn-primary"
+                        >
+                          Register
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <form
+                      className="requires-validation"
+                      noValidate
+                      onSubmit={exisitingRecordHandler}
+                    >
+                      <div className="col-md-12 mobile">
+                        <input
+                          className="form-control"
+                          type="text"
+                          name="mobile"
+                          placeholder="Mobile Number"
+                          maxLength="13"
+                          required
+                          ref={mobileRef}
+                        />
+                      </div>
+                      <div className="ailments">
+                        <textarea
+                          className="form-ailments"
+                          id="invalidCheck"
+                          placeholder="Ailments/Reason of visit"
+                          ref={ailmentRef}
+                          required
+                        />
+                      </div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="invalidCheck"
+                          required
+                        />
+                        <label className="form-check-label">
+                          I confirm that all data are correct
+                        </label>
+                      </div>
+
+                      <div className="form-button mt-3">
+                        <button
+                          id="submit"
+                          type="submit"
+                          className="btn btn-primary"
+                        >
+                          Register
+                        </button>
+                      </div>
+                    </form>
+                  )
                 ) : (
                   <div style={{ textAlign: "center" }}>
                     {" "}

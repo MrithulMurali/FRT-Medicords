@@ -59,10 +59,17 @@ export default function UserPage(props) {
   return !isLoading ? (
     <div className="user-container">
       <div className="user-card">
-        <img
-          src="https://www.endeavorcareers.com/wp-content/uploads/2017/03/default-profile-pic.png"
-          alt="profile"
-        />
+        {patientData.gender.toLowerCase() === "m" ? (
+          <img
+            src="https://www.endeavorcareers.com/wp-content/uploads/2017/03/default-profile-pic.png"
+            alt="profile"
+          />
+        ) : (
+          <img
+            src="https://www.ticketkhidakee.com/admin-dashboard/public/uploads/cast/1598414147Female%20Cliparts.jpg"
+            alt="profile"
+          />
+        )}
         <div className="card-details">
           <h2>{patientData.name}</h2>
           <p>+91 {patientData.key}</p>
