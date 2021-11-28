@@ -82,7 +82,6 @@ export default function UserPage(props) {
           <p>
             Sex: <b>{patientData.gender}</b>
           </p>
-          {/* <p>Vijaya@mailing.com</p> */}
         </div>
       </div>
       <div>
@@ -90,7 +89,7 @@ export default function UserPage(props) {
           <input
             type="text"
             className="searchTerm"
-            placeholder="Search your record"
+            placeholder="Search your ailment"
             onChange={(e) => {
               setSearch(e.target.value);
             }}
@@ -111,25 +110,26 @@ export default function UserPage(props) {
               <th>Previous Visit</th>
               <th>Ailments</th>
             </tr>
-            {/* {PATIENT_DETAILS.filter((details) => {
-              if (search === "") {
-                return details;
-              } else if (
-                details.ailments.toLowerCase().includes(search.toLowerCase())
-              ) {
-                return details;
-              }
-            }).map((details) => ( */}
-            <UserRecord
-              key={patientData._id}
-              lastVisit={patientData.lastVisit}
-              ailments={patientData.ailment}
-            />
-            {/*  ))}{" "} */}
+            {patientData.recordData
+              .filter((details) => {
+                if (search === "") {
+                  return details;
+                } else if (
+                  details.ailment.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return details;
+                }
+              })
+              .map((details) => (
+                <UserRecord
+                  key={details._id}
+                  lastVisit={details.lastVisit}
+                  ailments={details.ailment}
+                />
+              ))}
           </table>
         </div>
       </div>
-      )
     </div>
   ) : (
     <p style={{ textAlign: "center", fontSize: "1.2rem" }}>Loading data...</p>

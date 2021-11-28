@@ -9,8 +9,18 @@ exports.registerUser = async (req, res) => {
       res.status(406).json({ err: "You have fill the registration details!" });
       return;
     }
-    let { name, bloodgrp, age, key, ailment, gender, password, lastVisit } =
-      req.body;
+    let {
+      name,
+      bloodgrp,
+      age,
+      key,
+      ailment,
+      gender,
+      password,
+      lastVisit,
+      state,
+      email,
+    } = req.body;
 
     //hashing password
     const hash = await bcrypt.hashSync(password, 10);
@@ -23,9 +33,10 @@ exports.registerUser = async (req, res) => {
       name,
       bloodgrp,
       age,
-      ailment,
       gender,
-      lastVisit,
+      email,
+      state,
+      recordData: [{ lastVisit, ailment }],
     });
 
     patientDetails
@@ -89,11 +100,10 @@ exports.login = async (req, res) => {
       token,
       key: patient.key,
       name: patient.name,
-      ailment: patient.ailment,
       bloodgrp: patient.bloodgrp,
       age: patient.age,
       gender: patient.gender,
-      lastVisit: patient.lastVisit,
+      recordData: patient.recordData,
     });
   } catch (error) {
     res.status(500).json({
@@ -101,6 +111,19 @@ exports.login = async (req, res) => {
         error.message ||
         "There was an error while logging in. Try again later.",
     });
+  }
+};
+// Add records to exisiting patient
+exports.existingPatient = async (req, res) => {
+  try {
+    let { key, ailment, lastVisit } = req.body;
+    let existingPatient = await PatientDetails.findOneAndUpdate({ key });
+    existingPatient.recordData.push({ lastVisit, ailment });
+    existingPatient.save(existingPatient).then((update) => {
+      res.json(update);
+    });
+  } catch (error) {
+    console.log(error.message);
   }
 };
 
@@ -123,16 +146,17 @@ exports.patientData = (req, res) => {
     .then((data) => {
       const newArray = [];
       for (let i = 0; i < data.length; i++) {
-        const { _id, name, bloodgrp, age, gender, ailment, lastVisit } =
-          data[i];
+        const { _id, name, bloodgrp, age, gender, recordData, key } = data[i];
+        let lastUpdatedData = recordData.slice(-1);
+
         const updatedValues = {
+          key,
           _id,
           name,
           bloodgrp,
           age,
           gender,
-          ailment,
-          lastVisit,
+          recordData: lastUpdatedData,
         };
         newArray.push(updatedValues);
       }
@@ -154,17 +178,27 @@ exports.loggedUserdata = (req, res) => {
     .then((data) => {
       if (data) {
         data.forEach((response) => {
-          const { _id, key, name, age, bloodgrp, ailment, gender, lastVisit } =
-            response;
+          const {
+            _id,
+            key,
+            name,
+            age,
+            bloodgrp,
+            gender,
+            recordData,
+            state,
+            email,
+          } = response;
           res.json({
             _id,
             key,
             name,
             age,
             bloodgrp,
-            ailment,
             gender,
-            lastVisit,
+            recordData,
+            state,
+            email,
           });
         });
       } else {

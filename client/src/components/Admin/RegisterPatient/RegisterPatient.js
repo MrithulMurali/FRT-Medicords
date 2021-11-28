@@ -68,6 +68,8 @@ export default function RegisterPatient(props) {
           bloodgrp: bloodgGrpRef.current.value,
           ailment: ailmentRef.current.value,
           gender,
+          state: stateRef.current.value,
+          email: emailRef.current.value,
           lastVisit: new Date().toISOString().slice(0, 10),
         })
       );
@@ -81,14 +83,14 @@ export default function RegisterPatient(props) {
         });
     }
   };
-const exisitingRecordHandler = ()=>{
-  if (
-    /\d/.test(mobileRef.current.value) &&
-    ailmentRef.current.value.trim() !== ""
-  ) {
-    const 
-
-}
+  const exisitingRecordHandler = () => {
+    if (
+      /\d/.test(mobileRef.current.value) &&
+      ailmentRef.current.value.trim() !== ""
+    ) {
+      console.log(false);
+    }
+  };
   return (
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       <div className="form-body">
@@ -184,7 +186,7 @@ const exisitingRecordHandler = ()=>{
                           value="M"
                           autoComplete="off"
                           required
-                          onChange={() => {
+                          onChange={(e) => {
                             setGender(e.target.value);
                           }}
                         />
@@ -203,7 +205,9 @@ const exisitingRecordHandler = ()=>{
                           value="F"
                           autoComplete="off"
                           required
-                          onChange={genderHandler}
+                          onChange={(e) => {
+                            setGender(e.target.value);
+                          }}
                         />
                         <label
                           className="btn btn-sm btn-outline-secondary"
@@ -220,7 +224,9 @@ const exisitingRecordHandler = ()=>{
                           value="N.S"
                           autoComplete="off"
                           required
-                          onChange={genderHandler}
+                          onChange={(e) => {
+                            setGender(e.target.value);
+                          }}
                         />
                         <label
                           className="btn btn-sm btn-outline-secondary"

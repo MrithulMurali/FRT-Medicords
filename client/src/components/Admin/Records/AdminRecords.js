@@ -8,8 +8,12 @@ export default function AdminRecords(props) {
       <td>{props.bgroup}</td>
       <td>{props.age}</td>
       <td>{props.sex}</td>
-      <td>{props.lastVisit}</td>
-      <td>{props.ailments}</td>
+      {props.recordData.map((data) => (
+        <React.Fragment>
+          <td>{data.lastVisit}</td>
+          <td>{data.ailment}</td>
+        </React.Fragment>
+      ))}
       {/* <td>
         <button className="record-edit">
           <i className="fas fa-edit"></i>

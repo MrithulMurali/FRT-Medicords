@@ -81,9 +81,9 @@ export default function Admin({ authorized }) {
           alt="profile"
         />
         <div className="card-details">
-          <h2>Lorem Ipsum</h2>
+          <h2>Lorem Ipsum Hospitals</h2>
           <p>+91 9231235324</p>
-          <p>loremimpum@mailing.com</p>
+          <p>loremipsum@mailing.com</p>
         </div>
       </div>
       <div className="record-choices">
@@ -110,7 +110,7 @@ export default function Admin({ authorized }) {
             <input
               type="text"
               className="searchTerm"
-              placeholder="Who are you looking for?"
+              placeholder="Enter the mobile number"
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
@@ -134,7 +134,7 @@ export default function Admin({ authorized }) {
                   <th>Age</th>
                   <th>Sex</th>
                   <th>Last Visit</th>
-                  <th>Ailments</th>
+                  <th>Ailment</th>
                   {/* <th></th> */}
                 </tr>
                 {records
@@ -142,20 +142,20 @@ export default function Admin({ authorized }) {
                     if (search === "") {
                       return details;
                     } else if (
-                      details.name.toLowerCase().includes(search.toLowerCase())
+                      details.key.toLowerCase().includes(search.toLowerCase())
                     ) {
                       return details;
                     }
                   })
                   .map((details) => (
                     <AdminRecords
+                      mobile={details.key}
                       key={details._id}
                       name={details.name}
                       bgroup={details.bloodgrp}
                       age={details.age}
                       sex={details.gender}
-                      lastVisit={details.lastVisit}
-                      ailments={details.ailment}
+                      recordData={details.recordData}
                     />
                   ))}
               </tbody>
