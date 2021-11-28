@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { registerAction } from "../../../container/action";
+import { registerAction, existingUserAction } from "../../../container/action";
 import { useDispatch } from "react-redux";
 import "./RegisterPatient.css";
 import { v4 as uuidv4 } from "uuid";
 import { states } from "../helper/states";
+import axios from "axios";
 
 export default function RegisterPatient(props) {
   const randomPasswordGenerator = () => {
@@ -83,12 +84,29 @@ export default function RegisterPatient(props) {
         });
     }
   };
-  const exisitingRecordHandler = () => {
+  const exisitingRecordHandler = (e) => {
+    e.preventDefault();
     if (
       /\d/.test(mobileRef.current.value) &&
       ailmentRef.current.value.trim() !== ""
     ) {
-      console.log(false);
+      try {
+        const key = mobileRef.current.value;
+        const ailment = ailmentRef.current.value;
+        const lastVisit = new Date().toISOString().slice(0, 10);
+        axios
+          .put(`http://localhost:4000/api/existing-user/${key}`, {
+            key,
+            ailment,
+            lastVisit,
+          })
+          .then((response) => {
+            console.log(response.data);
+            setRecordSubmitted(true);
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   return (

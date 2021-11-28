@@ -117,13 +117,18 @@ exports.login = async (req, res) => {
 exports.existingPatient = async (req, res) => {
   try {
     let { key, ailment, lastVisit } = req.body;
-    let existingPatient = await PatientDetails.findOneAndUpdate({ key });
+    let existingPatient = await PatientDetails.findOneAndUpdate(
+      { key },
+      { upsert: true, new: true }
+    );
     existingPatient.recordData.push({ lastVisit, ailment });
     existingPatient.save(existingPatient).then((update) => {
       res.json(update);
     });
   } catch (error) {
-    console.log(error.message);
+    res.status(500).json({
+      err: error.message || "There was an error while updating the record!",
+    });
   }
 };
 
