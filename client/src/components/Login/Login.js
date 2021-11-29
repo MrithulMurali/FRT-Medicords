@@ -113,7 +113,6 @@ export default function Login(props) {
         } else {
           setErrorMessage("Incorrect credentials!");
         }
-        setErrorMessage("");
       } else {
         setErrorMessage("Form not valid yet! Try again!");
       }

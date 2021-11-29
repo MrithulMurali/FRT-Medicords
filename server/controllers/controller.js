@@ -134,14 +134,16 @@ exports.existingPatient = async (req, res) => {
 
 //delete the account
 exports.delete = async (req, res) => {
-  try {
-    await PatientDetails.findByIdAndDelete(req.patient_id);
-    res.json({ message: "User deleted successfully!" });
-  } catch (err) {
-    res
-      .status(500)
-      .json({ error: err.message || "Error while deleting the user!" });
-  }
+  const key = req.params.key;
+  await PatientDetails.findOneAndDelete({ key })
+    .then((response) => {
+      res.json({ msg: "Successfully deleted user" });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        err: error.message || "Unexpected error occured while deleting user!",
+      });
+    });
 };
 
 // Admin Patient data

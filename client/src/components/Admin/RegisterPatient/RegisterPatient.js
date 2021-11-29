@@ -58,8 +58,7 @@ export default function RegisterPatient(props) {
       ailmentRef.current.value.trim() !== ""
     ) {
       const patientPassword = randomPasswordGenerator();
-      alert("Account registered successfully! Click 'OK' to view password");
-      alert(` Password: ${patientPassword}. Use this password login.`);
+
       const validate = dispatch(
         registerAction({
           key: mobileRef.current.value,
@@ -77,10 +76,19 @@ export default function RegisterPatient(props) {
       validate
         .then((data) => {
           console.log(data);
+          alert("Account registered successfully! Click 'OK' to view password");
+          alert(` Password: ${patientPassword}. Use this password login.`);
           setRecordSubmitted(true);
         })
         .catch((err) => {
-          alert(err.message);
+          if (
+            err.data.err ===
+            `E11000 duplicate key error collection: PatientsDatabase.patients index: key_1 dup key: { key: "1234567890" }`
+          ) {
+            alert("Error! This mobile number is linked with another account.");
+          } else {
+            alert(err.data.err);
+          }
         });
     }
   };
@@ -90,23 +98,24 @@ export default function RegisterPatient(props) {
       /\d/.test(mobileRef.current.value) &&
       ailmentRef.current.value.trim() !== ""
     ) {
-      try {
-        const key = mobileRef.current.value;
-        const ailment = ailmentRef.current.value;
-        const lastVisit = new Date().toISOString().slice(0, 10);
-        axios
-          .put(`http://localhost:4000/api/existing-user/${key}`, {
-            key,
-            ailment,
-            lastVisit,
-          })
-          .then((response) => {
-            console.log(response.data);
-            setRecordSubmitted(true);
-          });
-      } catch (error) {
-        console.log(error);
-      }
+      const key = mobileRef.current.value;
+      const ailment = ailmentRef.current.value;
+      const lastVisit = new Date().toISOString().slice(0, 10);
+      axios
+        .put(`http://localhost:4000/api/existing-user/${key}`, {
+          key,
+          ailment,
+          lastVisit,
+        })
+        .then((response) => {
+          console.log(response.data);
+          setRecordSubmitted(true);
+        })
+        .catch((error) => {
+          alert(
+            `${error.message}. Confirm the mobile number! Or try again later.`
+          );
+        });
     }
   };
   return (

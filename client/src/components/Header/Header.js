@@ -11,6 +11,8 @@ import Hamburger from "./Hamburger/Hamburger";
 export default function Header() {
   const location = useLocation();
   const history = useHistory();
+  const path = location.pathname;
+  const key = path.slice(6);
   const dispatch = useDispatch();
 
   const [aboutUsActive, setAboutUsActive] = useState(false);
@@ -33,11 +35,13 @@ export default function Header() {
     if (choice.toLowerCase() === "y") {
       const token = localStorage.getItem("x-access-token");
       axios
-        .delete("http://localhost:4000/api/delete", {
+        .delete(`http://localhost:4000/api/delete/${key}`, {
           headers: { "x-access-token": token },
         })
         .then((response) => {
-          console.log("Deleted Sucessfully", response.data);
+          console.log(response.data);
+          alert("Account deleted successfully! Thank you for using medicords!");
+          localStorage.clear();
           history.push("/");
         })
         .catch((error) => {
