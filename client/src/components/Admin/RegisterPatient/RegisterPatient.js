@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { registerAction, existingUserAction } from "../../../container/action";
+import { registerAction } from "../../../container/action";
 import { useDispatch } from "react-redux";
 import "./RegisterPatient.css";
 import { v4 as uuidv4 } from "uuid";

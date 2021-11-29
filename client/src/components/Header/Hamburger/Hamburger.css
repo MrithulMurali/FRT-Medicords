@@ -1,0 +1,80 @@
+.hamburger {
+  position: absolute;
+  top: 25px;
+  right: 0;
+}
+.toggle-button {
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  margin-top: 2%;
+}
+.toggle-button .bar {
+  height: 3px;
+  width: 100%;
+  border-radius: 3px;
+  background: rgb(255, 255, 255);
+}
+.collapse {
+  opacity: 0;
+  transform: translateY(-50px);
+  pointer-events: none;
+  transition: 100ms all ease;
+  position: relative;
+  top: 38px;
+  right: 0;
+  min-width: 150px;
+  min-height: 150px;
+  background: #e0e1ff;
+  color: black;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.dropdown-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  min-height: 120px;
+  min-width: 100%;
+}
+.active-collapse {
+  pointer-events: all;
+  transform: translate(0);
+  opacity: 1;
+}
+
+.collapse > ul {
+  list-style: none;
+}
+
+.delete-dropdown {
+  color: red;
+}
+.logout-dropdown,
+.delete-dropdown {
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 7px 22px 7px 22px;
+  margin-right: 20px;
+  width: 100%;
+}
+.delete-dropdown:hover,
+.logout-dropdown:hover {
+  transform: scale(105%);
+  color: rgb(0, 0, 0);
+}
+.dropdown-container {
+  width: 100%;
+}
+.delete-dropdown:hover,
+.logout-dropdown:hover {
+  background: #ebf1ff;
+}

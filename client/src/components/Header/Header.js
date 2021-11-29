@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "./Header.css";
-import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Aboutus from "../AboutUs/Aboutus";
 import ContactUs from "../ContactUs/ContactUs";
 import { logoutAction } from "../../container/action";
+import Hamburger from "./Hamburger/Hamburger";
 
 export default function Header() {
   const location = useLocation();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [aboutUsActive, setAboutUsActive] = useState(false);
@@ -22,6 +25,25 @@ export default function Header() {
 
   const logoutHandler = () => {
     dispatch(logoutAction());
+  };
+  const deleteAccountHandler = () => {
+    const choice = prompt(
+      "This is an irreversible action which will delete your account with all its data. Do you want to continue? Y/N "
+    );
+    if (choice.toLowerCase() === "y") {
+      const token = localStorage.getItem("x-access-token");
+      axios
+        .delete("http://localhost:4000/api/delete", {
+          headers: { "x-access-token": token },
+        })
+        .then((response) => {
+          console.log("Deleted Sucessfully", response.data);
+          history.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   const loggedIn =
@@ -58,12 +80,17 @@ export default function Header() {
               Contact us
             </li>
           </ul>
-        ) : (
+        ) : location.pathname === "/admin" ? (
           <div className="logout-container">
             <Link to="/" onClick={logoutHandler} className="logout">
               Logout <i className="fas fa-sign-out-alt"></i>
             </Link>
           </div>
+        ) : (
+          <Hamburger
+            logoutHandler={logoutHandler}
+            deleteAccountHandler={deleteAccountHandler}
+          />
         )}
       </div>
     </React.Fragment>

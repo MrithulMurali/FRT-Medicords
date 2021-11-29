@@ -42,20 +42,6 @@ export default function UserPage(props) {
       history.push("/login");
     }
   }, [history]);
-
-  const PATIENT_DETAILS = [
-    {
-      id: "r1",
-      lastVisit: new Date(2021, 3 - 1, 26).toISOString().slice(0, 10),
-      ailments:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis minima dignissimos, aperiam ex perferendis cum minus necessitatibus a id debitis sequi assumenda incidunt laboriosam soluta pariatur voluptas facere magni itaque!Quas consequatur ipsum dicta qui! Quia a at distinctio. Harum est ab repellendus autem tempora! Quasi qui aliquam alias voluptatibus nihil cupiditate dolore praesentium, nesciunt temporibus facere maiores, sint iste?",
-    },
-    {
-      id: "r2",
-      lastVisit: new Date(2021, 3 - 1, 20).toISOString().slice(0, 10),
-      ailments: "Aids",
-    },
-  ];
   return !isLoading ? (
     <div className="user-container">
       <div className="user-card">
@@ -106,27 +92,29 @@ export default function UserPage(props) {
         <div className="record-container">
           <h2>Your Records</h2>
           <table>
-            <tr>
-              <th>Previous Visit</th>
-              <th>Ailments</th>
-            </tr>
-            {patientData.recordData
-              .filter((details) => {
-                if (search === "") {
-                  return details;
-                } else if (
-                  details.ailment.toLowerCase().includes(search.toLowerCase())
-                ) {
-                  return details;
-                }
-              })
-              .map((details) => (
-                <UserRecord
-                  key={details._id}
-                  lastVisit={details.lastVisit}
-                  ailments={details.ailment}
-                />
-              ))}
+            <tbody>
+              <tr>
+                <th>Previous Visit</th>
+                <th>Ailments</th>
+              </tr>
+              {patientData.recordData
+                .filter((details) => {
+                  if (search === "") {
+                    return details;
+                  } else if (
+                    details.ailment.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return details;
+                  }
+                })
+                .map((details) => (
+                  <UserRecord
+                    key={details._id}
+                    lastVisit={details.lastVisit}
+                    ailments={details.ailment}
+                  />
+                ))}
+            </tbody>
           </table>
         </div>
       </div>

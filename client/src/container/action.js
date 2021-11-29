@@ -1,6 +1,5 @@
 import * as actionTypes from "./types";
 import * as AuthService from "../components/services/auth.service";
-import axios from "axios";
 
 //Patient register action
 export const registerAction = (payload) => (dispatch) => {
@@ -60,22 +59,3 @@ export const logoutAction = () => (dispatch) => {
     return Promise.reject(error);
   }
 };
-
-/* // Append new records to exisiting user
-export const existingUserAction = (payload) => async (dispatch) => {
-  try {
-    console.log(payload);
-    const { data } = await axios.put(
-      `http://localhost:4000/api/existing-user`,
-      payload
-    );
-
-    dispatch({
-      type: actionTypes.NEW_RECORD_SUCCESS,
-      payload: { data },
-    });
-    return Promise.resolve({ data });
-  } catch (error) {
-    return Promise.reject(error);
-  }
-}; */
