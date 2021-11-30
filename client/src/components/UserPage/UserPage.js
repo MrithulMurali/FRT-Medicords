@@ -21,18 +21,22 @@ export default function UserPage(props) {
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      try {
-        console.log(key);
-        setIsLoading(true);
-        const response = await axios.get(
-          `http://localhost:4000/api/user/${key}`
-        );
-        const userData = response.data;
-        setPatientData(userData);
-        if (userData) setIsLoading(false);
-      } catch (error) {
-        alert(error);
-      }
+      console.log(key);
+      setIsLoading(true);
+      await axios
+        .get(`http://localhost:4000/api/user/${key}`)
+        .then((response) => {
+          if (response) {
+            const userData = response.data;
+            setPatientData(userData);
+            if (userData) setIsLoading(false);
+          } else {
+            history.push("/Not-Found");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
     fetchUserDetails();
   }, [key]);

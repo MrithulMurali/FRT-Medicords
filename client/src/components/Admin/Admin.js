@@ -7,39 +7,6 @@ import RegisterPatient from "./RegisterPatient/RegisterPatient";
 import axios from "axios";
 
 export default function Admin({ authorized }) {
-  /* const PATIENT_DETAILS = [
-    {
-      id: "r1",
-      name: "Tanuj",
-      bgroup: "O+",
-      age: 19,
-      sex: "M",
-      lastVisit: new Date(2021, 3 - 1, 26).toISOString().slice(0, 10),
-      ailments:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis minima dignissimos, aperiam ex perferendis cum minus necessitatibus a id debitis sequi assumenda incidunt laboriosam soluta pariatur voluptas facere magni itaque!Quas consequatur ipsum dicta qui! Quia a at distinctio. Harum est ab repellendus autem tempora! Quasi qui aliquam alias voluptatibus nihil cupiditate dolore praesentium, nesciunt temporibus facere maiores, sint iste?",
-    },
-    {
-      id: "r2",
-      name: "Dileep",
-      bgroup: "O+",
-      age: 20,
-      sex: "M",
-      lastVisit: new Date(2021, 3 - 1, 21).toISOString().slice(0, 10),
-      ailments:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis minima dignissimos, aperiam ex perferendis cum minus necessitatibus a id debitis sequi assumenda incidunt laboriosam soluta pariatur voluptas facere magni itaque!Quas consequatur ipsum dicta qui! Quia a at distinctio. Harum est ab repellendus autem tempora! Quasi qui aliquam alias voluptatibus nihil cupiditate dolore praesentium, nesciunt temporibus facere maiores, sint iste?",
-    },
-    {
-      id: "r3",
-      name: "Dileepa",
-      bgroup: "O+",
-      age: 20,
-      sex: "F",
-      lastVisit: new Date(2020, 2 - 1, 11).toISOString().slice(0, 10),
-      ailments:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis minima dignissimos, aperiam ex perferendis cum minus necessitatibus a id debitis sequi assumenda incidunt laboriosam soluta pariatur voluptas facere magni itaque!Quas consequatur ipsum dicta qui! Quia a at distinctio. Harum est ab repellendus autem tempora! Quasi qui aliquam alias voluptatibus nihil cupiditate dolore praesentium, nesciunt temporibus facere maiores, sint iste?",
-    },
-  ];
- */
   const [recordsActive, setRecordsActive] = useState(true);
   const [recordFormActive, setRecordFormActive] = useState(false);
   const [records, setRecords] = useState([]);
@@ -156,6 +123,7 @@ export default function Admin({ authorized }) {
                       age={details.age}
                       sex={details.gender}
                       recordData={details.recordData}
+                      recordDataKey={details.recordData._id}
                     />
                   ))}
               </tbody>

@@ -34,7 +34,7 @@ export default function RegisterPatient(props) {
   const [gender, setGender] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [recordSubmitted, setRecordSubmitted] = useState(false);
-  const [exisitingRecordForm, setExisitingRecordForm] = useState(false);
+  const [existingRecordForm, setExistingRecordForm] = useState(false);
 
   const todayDate = new Date().toISOString().split("T")[0];
   //UseEffect
@@ -130,16 +130,20 @@ export default function RegisterPatient(props) {
                   <span
                     className="form-existing"
                     onClick={() => {
-                      setExisitingRecordForm((prev) => !prev);
+                      setExistingRecordForm((prev) => !prev);
                     }}
                   >
-                    {!exisitingRecordForm ? "Exisiting users?" : "Back"}{" "}
-                    <i class="fas fa-angle-double-right"></i>
+                    {" "}
+                    {!recordSubmitted &&
+                      (!existingRecordForm ? "Existing users?" : "Back")}{" "}
+                    {!recordSubmitted && (
+                      <i className="fas fa-angle-double-right"></i>
+                    )}
                   </span>
                 </div>
                 <p>Fill in the data below.</p>
                 {!isSubmitting ? (
-                  !exisitingRecordForm ? (
+                  !existingRecordForm ? (
                     <form
                       className="requires-validation"
                       noValidate

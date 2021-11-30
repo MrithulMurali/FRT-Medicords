@@ -14,19 +14,25 @@ export default function ContactUs(props) {
         </h4>
         <div className="reachus-container">
           <a href="mailto:medicords-crc@medi.com?subject=Community Reach Out">
-            Email Us <i class="far fa-envelope"></i>
+            Email Us <i className="far fa-envelope"></i>
           </a>
           <div>
             <h4 style={{ fontSize: "1.2rem" }}>Social media</h4>
             <div className="icons">
-              <a href="https://www.facebook.com/">
-                <i style={{ cursor: "pointer" }} class="fab fa-facebook"></i>
+              <a href="/">
+                <i
+                  style={{ cursor: "pointer" }}
+                  className="fab fa-facebook"
+                ></i>
               </a>
-              <a href="https://www.instagram.com/">
-                <i style={{ cursor: "pointer" }} class="fab fa-instagram"></i>
+              <a href="/">
+                <i
+                  style={{ cursor: "pointer" }}
+                  className="fab fa-instagram"
+                ></i>
               </a>
-              <a href="https://twitter.com/?lang=en">
-                <i style={{ cursor: "pointer" }} class="fab fa-twitter"></i>
+              <a href="/">
+                <i style={{ cursor: "pointer" }} className="fab fa-twitter"></i>
               </a>
             </div>
           </div>

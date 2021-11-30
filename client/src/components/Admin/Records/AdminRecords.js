@@ -14,11 +14,6 @@ export default function AdminRecords(props) {
           <td>{data.ailment}</td>
         </React.Fragment>
       ))}
-      {/* <td>
-        <button className="record-edit">
-          <i className="fas fa-edit"></i>
-        </button>
-      </td> */}
     </tr>
   );
 }

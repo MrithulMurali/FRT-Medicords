@@ -1,14 +1,17 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useState } from "react";
 import Header from "./components/Header/Header";
-import Admin from "./components/Admin/Admin";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
-import Login from "./components/Login/Login";
-
-import Signup from "./components/Signup/Signup";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NotFound from "./components/NotFound/NotFound";
-import UserPage from "./components/UserPage/UserPage";
+import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
+
+//Lazy-loading
+
+const Login = React.lazy(() => import("./components/Login/Login"));
+const Signup = React.lazy(() => import("./components/Signup/Signup"));
+const Admin = React.lazy(() => import("./components/Admin/Admin"));
+const UserPage = React.lazy(() => import("./components/UserPage/UserPage"));
+const NotFound = React.lazy(() => import("./components/NotFound/NotFound"));
 
 function App() {
   const [auth, setAuth] = useState(false);
@@ -22,27 +25,35 @@ function App() {
     <Router>
       <React.Fragment>
         <Header />
-        <Switch>
-          <Route path="/" exact component={HomeScreen}></Route>
-          <Route exact path="/signup">
-            <Signup />
-          </Route>
-          <Route exact path="/login">
-            <Login
-              setAuth={adminAuthHandler}
-              userKey={(key) => {
-                setUserkey(key);
-              }}
-            />
-          </Route>
-          <Route exact path="/admin">
-            <Admin authorized={auth} />
-          </Route>
-          <Route path="/user" userKey={userKey}>
-            <UserPage />
-          </Route>
-          <NotFound />
-        </Switch>
+        <Suspense
+          fallback={
+            <div>
+              <LoadingScreen />
+            </div>
+          }
+        >
+          <Switch>
+            <Route path="/" exact component={HomeScreen}></Route>
+            <Route exact path="/signup">
+              <Signup />
+            </Route>
+            <Route exact path="/login">
+              <Login
+                setAuth={adminAuthHandler}
+                userKey={(key) => {
+                  setUserkey(key);
+                }}
+              />
+            </Route>
+            <Route exact path="/admin">
+              <Admin authorized={auth} />
+            </Route>
+            <Route path="/user" userKey={userKey}>
+              <UserPage />
+            </Route>
+            <NotFound />
+          </Switch>
+        </Suspense>
       </React.Fragment>
     </Router>
   );
