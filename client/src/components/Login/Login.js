@@ -138,7 +138,6 @@ export default function Login(props) {
             setErrorMessage(error.err.err);
             console.log(error.err.err);
           });
-        console.log(store.getState());
       }
     }
   };

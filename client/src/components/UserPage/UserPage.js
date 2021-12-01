@@ -21,7 +21,6 @@ export default function UserPage(props) {
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      console.log(key);
       setIsLoading(true);
       await axios
         .get(`http://localhost:4000/api/user/${key}`)

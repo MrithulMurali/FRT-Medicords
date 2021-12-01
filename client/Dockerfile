@@ -1,13 +1,11 @@
-FROM node:14.16.1 as build
+FROM node:14.16.1
+
+LABEL version="v:1.0"
+LABEL description="This is the base docker image for the medicords client side REACT app"
+
 WORKDIR /client
 COPY package.json /client/
-RUN npm install --silent
+RUN npm install --production
 COPY . .
-RUN npm run build
-
-
-#Nginx 
-FROM nginx:stable-alpine as stage
-COPY --from=build /client/build /usr/share/nginx/html
-EXPOSE 80
-RUN ["nginx","-g","daemon off"]
+EXPOSE 3000
+CMD ["npm","start"]

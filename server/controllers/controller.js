@@ -49,16 +49,6 @@ exports.registerUser = async (req, res) => {
           err: err.message || "Something went wrong while registration!",
         });
       });
-
-    console.log({
-      name,
-      bloodgrp,
-      age,
-      key,
-      ailment,
-      gender,
-      hash,
-    });
   } catch (error) {
     return res
       .status(406)
@@ -79,8 +69,6 @@ exports.login = async (req, res) => {
 
     const patient = await PatientDetails.findOne({ key });
 
-    console.log(patient);
-
     if (!patient)
       return res.status(406).json({
         err: "Uh oh! No user registered with this mobile number.",
@@ -94,7 +82,6 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: patient._id }, `${process.env.JWT_SECRET}`, {
       expiresIn: "1h",
     });
-    console.log(token);
 
     res.json({
       token,
