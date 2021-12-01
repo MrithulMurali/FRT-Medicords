@@ -18,7 +18,7 @@ export default function Aboutus(props) {
         Enim corrupti voluptatibus quo quam cum maiores porro quis unde maxime
         accusamus, possimus numquam quasi. Consequatur rem officia sit numquam
         quaerat. Suscipit, praesentium nostrum. Quibusdam commodi dolores sit
-        reprehenderit ex!
+        reprehenderit!
       </p>
       <div className="close-button-container">
         <Button className="close-button" onClickClose={props.onClickClose}>
