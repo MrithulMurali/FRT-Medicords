@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 
 services:
   client:
@@ -7,7 +7,7 @@ services:
     container_name: medicords-client
     stdin_open: true
     ports:
-      - "3000:3000"
+      - "80:80"
     depends_on:
       - server
     networks:
