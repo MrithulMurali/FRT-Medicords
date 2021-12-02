@@ -2,15 +2,26 @@ version: "3"
 
 services:
   client:
-    image: medicords-client:v0.1
+    build: 
+      context: ./client
+    container_name: medicords-client
     stdin_open: true
     ports:
       - "3000:3000"
     depends_on:
       - server
+    networks:
+      - app-network
   server:
-    image: medicords-server:v0.1
+    build: 
+      context: ./server
+    container_name: medicords-server
     env_file:
       - "./server/config.env"
     ports:
       - "4000:4000"
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
