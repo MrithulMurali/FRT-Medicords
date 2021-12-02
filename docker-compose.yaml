@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  client:
+    image: medicords-client:v0.1
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+  server:
+    image: medicords-server:v0.1
+    env_file:
+      - "./server/config.env"
+    ports:
+      - "4000:4000"
