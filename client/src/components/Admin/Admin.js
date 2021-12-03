@@ -17,7 +17,7 @@ export default function Admin({ authorized }) {
       if (recordsActive) {
         try {
           const response = await axios.get(
-            "http://medicords.eastus.cloudapp.azure.com:4000/api/patient-data"
+            "http://localhost:4000/api/patient-data"
           );
           const patientData = response.data;
           setRecords(patientData);

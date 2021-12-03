@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = `http://medicords.eastus.cloudapp.azure.com:4000/api`;
+const baseURL = `http://localhost:4000/api`;
 
 //register request
 export const register = (newPatient) => {

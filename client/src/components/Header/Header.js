@@ -35,12 +35,9 @@ export default function Header() {
     if (choice.toLowerCase() === "y") {
       const token = localStorage.getItem("x-access-token");
       axios
-        .delete(
-          `http://medicords.eastus.cloudapp.azure.com:4000/api/delete/${key}`,
-          {
-            headers: { "x-access-token": token },
-          }
-        )
+        .delete(`http://localhost:4000/api/delete/${key}`, {
+          headers: { "x-access-token": token },
+        })
         .then((response) => {
           console.log(response.data);
           alert("Account deleted successfully! Thank you for using medicords!");

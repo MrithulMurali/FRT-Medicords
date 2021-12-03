@@ -102,14 +102,11 @@ export default function RegisterPatient(props) {
       const ailment = ailmentRef.current.value;
       const lastVisit = new Date().toISOString().slice(0, 10);
       axios
-        .put(
-          `http://medicords.eastus.cloudapp.azure.com:4000/api/existing-user/${key}`,
-          {
-            key,
-            ailment,
-            lastVisit,
-          }
-        )
+        .put(`http://localhost:4000/api/existing-user/${key}`, {
+          key,
+          ailment,
+          lastVisit,
+        })
         .then((response) => {
           console.log(response.data);
           setRecordSubmitted(true);

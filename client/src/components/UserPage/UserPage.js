@@ -23,7 +23,7 @@ export default function UserPage(props) {
     const fetchUserDetails = async () => {
       setIsLoading(true);
       await axios
-        .get(`http://medicords.eastus.cloudapp.azure.com:4000/api/user/${key}`)
+        .get(`http://localhost:4000/api/user/${key}`)
         .then((response) => {
           if (response) {
             const userData = response.data;
