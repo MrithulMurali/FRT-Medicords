@@ -3,4 +3,4 @@ WORKDIR /server
 COPY package.json /server/
 RUN npm install --silent
 COPY . .
-RUN ["npm","start"]
+CMD ["npm","start"]
