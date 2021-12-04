@@ -21,8 +21,17 @@ services:
       - "4000:4000"
     networks:
       - mern-app
+
+volumes:
+  caddy-data:
+    driver: local
+  caddy-config:
+    driver: local
+  mongo-data:
+    driver: local
 networks:
   mern-app:
     driver: bridge
+
 
       

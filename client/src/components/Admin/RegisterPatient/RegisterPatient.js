@@ -102,7 +102,7 @@ export default function RegisterPatient(props) {
       const ailment = ailmentRef.current.value;
       const lastVisit = new Date().toISOString().slice(0, 10);
       axios
-        .put(`http://${process.env.REACT_APP_BASE_URL}/existing-user/${key}`, {
+        .put(`https://${process.env.REACT_APP_BASE_URL}/existing-user/${key}`, {
           key,
           ailment,
           lastVisit,

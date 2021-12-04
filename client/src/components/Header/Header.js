@@ -35,7 +35,7 @@ export default function Header() {
     if (choice.toLowerCase() === "y") {
       const token = localStorage.getItem("x-access-token");
       axios
-        .delete(`http://${process.env.REACT_APP_BASE_URL}/delete/${key}`, {
+        .delete(`https://${process.env.REACT_APP_BASE_URL}/delete/${key}`, {
           headers: { "x-access-token": token },
         })
         .then((response) => {
