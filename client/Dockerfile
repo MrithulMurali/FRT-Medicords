@@ -10,7 +10,7 @@ RUN npm install
 COPY . .
 
 ARG BASE_URL
-ENV REACT_APP_BASE_URL = ${BASE_URL}
+ENV REACT_APP_BASE_URL=${BASE_URL}
 
 RUN npm run build
 

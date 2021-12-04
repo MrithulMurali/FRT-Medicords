@@ -1,4 +1,4 @@
-http://localhost:80{
+https://medicords.eastus.cloudapp.azure.com:443 {
     root * /srv
     route {
         reverse_proxy /api* api-server:4000
