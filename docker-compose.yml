@@ -3,6 +3,7 @@ version: "3"
 services:
   react-app:
     image: react-app
+    container_name: react-app
     restart: unless-stopped
     ports:
       - "80:80" #HTTP
@@ -14,6 +15,7 @@ services:
       - caddy-config:/config
   api-server:
     image: api-server
+    container_name: api-server
     restart: unless-stopped
     env_file:
       - server/config.env
