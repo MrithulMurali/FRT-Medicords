@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  react-app:
+    image: react-app
+    restart: unless-stopped
+    ports:
+      - "80:80" #HTTP
+      - "443:443" #HTTPS caddy
+    networks:
+      - mern-app
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+  api-server:
+    image: api-server
+    restart: unless-stopped
+    env_file:
+      - server/config.env
+    ports:
+      - "4000:4000"
+    networks:
+      - mern-app
+networks:
+  mern-app:
+    driver: bridge
+
+      

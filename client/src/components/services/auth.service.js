@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = `http://localhost:4000/api`;
+const baseURL = `http://${process.env.REACT_APP_BASE_URL}`;
 
 //register request
 export const register = (newPatient) => {

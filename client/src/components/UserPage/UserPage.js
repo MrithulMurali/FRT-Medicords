@@ -24,7 +24,7 @@ export default function UserPage(props) {
       console.log(key);
       setIsLoading(true);
       await axios
-        .get(`http://localhost:4000/api/user/${key}`)
+        .get(`http://${process.env.REACT_APP_BASE_URL}/user/${key}`)
         .then((response) => {
           if (response) {
             const userData = response.data;

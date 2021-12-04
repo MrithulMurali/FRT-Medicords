@@ -17,7 +17,7 @@ export default function Admin({ authorized }) {
       if (recordsActive) {
         try {
           const response = await axios.get(
-            "http://localhost:4000/api/patient-data"
+            `http://${process.env.REACT_APP_BASE_URL}/patient-data` //Sent via docker arg
           );
           const patientData = response.data;
           setRecords(patientData);
