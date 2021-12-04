@@ -77,7 +77,9 @@ export default function RegisterPatient(props) {
         .then((data) => {
           console.log(data);
           alert("Account registered successfully! Click 'OK' to view password");
-          alert(` Password: ${patientPassword}. Use this password login.`);
+          alert(
+            ` Password: ${patientPassword}\nUse this password login to your account.`
+          );
           setRecordSubmitted(true);
         })
         .catch((err) => {
