@@ -2,7 +2,7 @@ version: "3"
 
 services:
   react-app:
-    image: react-app
+    image: medicords.azurecr.io/react-app:latest
     container_name: react-app
     restart: unless-stopped
     ports:
@@ -14,11 +14,11 @@ services:
       - caddy-data:/data
       - caddy-config:/config
   api-server:
-    image: api-server
+    image: medicords.azurecr.io/api-server:latest
     container_name: api-server
     restart: unless-stopped
     env_file:
-      - server/config.env
+      - ./config.env
     ports:
       - "4000:4000"
     networks:
