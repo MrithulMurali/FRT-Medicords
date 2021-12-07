@@ -6,4 +6,4 @@
 
 # What is Medicords?
 
-Medicords is a health based web application. It is a website where hospitals can register and store records of their patients and even patients can view their prescription in a read only mode.
+Medicords is a health based web application. It is a website where hospitals can register and store records of their patients. While patients can view their records in their respective accounts in a read-only mode.
